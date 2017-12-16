@@ -1,4 +1,7 @@
 local Room = require("src.logic.rooms.Room")
+local Entity = require("src.logic.Entity")
+local Sprite = require("src.graphics.Sprite")
+local FollowPlayer = require("src.logic.ai.movement.FollowPlayer")
 
 local map = {}
 
@@ -12,7 +15,12 @@ local draw = function(self)
 end
 
 local _createRoom = function()
-    return Room.create()
+    local slimeSprite = Sprite.create("assets/sprites/slime.png")
+    local entities = {}
+
+    entities[1] = Entity.create(slimeSprite, 400, 300, 0, 4, FollowPlayer)
+
+    return Room.create(entities)
 end
 
 local nextRoom = function(self, game)
@@ -37,7 +45,7 @@ map.create = function ()
 
     inst.roomIndex = 1
     inst.rooms = {}
-    inst.rooms[1] = Room.create()
+    inst.rooms[1] = Room.create({})
 
     inst.nextRoom = nextRoom
     inst.previousRoom = previousRoom

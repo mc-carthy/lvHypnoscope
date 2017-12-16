@@ -22,9 +22,13 @@ local draw = function(self)
     love.graphics.setColor(unpack(self.colour))
     love.graphics.rectangle("fill", 0, 0, roomWidth, roomHeight)
     love.graphics.pop()
+
+    for _, entity in ipairs(self.entities) do
+        entity:draw()
+    end
 end
 
-room.create = function ()
+room.create = function (entities)
     local inst = {}
 
     inst.colour = {
@@ -33,7 +37,7 @@ room.create = function ()
         math.random(255)
     }
 
-    inst.entities = {}
+    inst.entities = entities
 
     inst.update = update
     inst.draw = draw
