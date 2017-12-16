@@ -9,9 +9,9 @@ end
 local update = function(self, dt)
     self.map:update(self)
     for _, entity in ipairs(self.entities) do
-        entity:update(dt, self)
+        entity:update(self)
     end
-    self.player:update(dt, self)
+    self.player:update(self)
 end
 
 local draw = function(self)

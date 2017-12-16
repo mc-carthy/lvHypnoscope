@@ -4,6 +4,10 @@ local roomWidth = 800
 local roomHeight = 600
 
 local update = function(self, game, map)
+    for _, entity in ipairs(self.entities) do
+        entity:update(game)
+    end
+
     if game.player.x > roomWidth then
         map:nextRoom(game)
     end
@@ -28,6 +32,8 @@ room.create = function ()
         math.random(255),
         math.random(255)
     }
+
+    inst.entities = {}
 
     inst.update = update
     inst.draw = draw

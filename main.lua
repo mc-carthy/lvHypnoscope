@@ -10,9 +10,9 @@ local testRoom
 
 function love.load()
     math.randomseed(os.time())
-       
+
     local playerSprite = Sprite.create("assets/sprites/adventurer.png", 0, 0, 4, 4)
-    local player = Entity.create(playerSprite, 50, 50, 0, 300, KeyboardMovement)
+    local player = Entity.create(playerSprite, 50, 50, 0, 5, KeyboardMovement)
     game = GameState.create(player)
 
     local slimeSprite = Sprite.create("assets/sprites/slime.png", 0, 0, 4, 4)
@@ -20,7 +20,7 @@ function love.load()
     for i = 1, 2 do
         local randomX = math.random(love.graphics.getWidth())
         local randomY = math.random(love.graphics.getHeight())
-        local slime = Entity.create(slimeSprite, randomX, randomY, 0, 150, FollowPlayer)
+        local slime = Entity.create(slimeSprite, randomX, randomY, 0, 4, FollowPlayer)
         game:addEntity(slime)
     end
 
