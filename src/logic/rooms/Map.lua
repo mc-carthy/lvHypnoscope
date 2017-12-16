@@ -8,6 +8,7 @@ end
 
 local draw = function(self)
     self.rooms[self.roomIndex]:draw()
+    love.graphics.printf("Room " .. self.roomIndex, love.graphics.getWidth() / 2 - 50, 40, 100, "center")
 end
 
 local _createRoom = function()
@@ -40,7 +41,7 @@ map.create = function ()
 
     inst.nextRoom = nextRoom
     inst.previousRoom = previousRoom
-    
+
     inst.update = update
     inst.draw = draw
 
