@@ -1,20 +1,18 @@
-local Sprite = require("src.graphics.sprite")
+local Entity = require("src.logic.Entity")
+local Sprite = require("src.graphics.Sprite")
 
 local player
 
 function love.load()
-    player = Sprite.create("assets/sprites/adventurer.png", 0, 0, 4, 4)
+    playerSprite = Sprite.create("assets/sprites/adventurer.png", 0, 0, 4, 4)
+    player = Entity.create(playerSprite, 50, 50, 100)
 end
 
-function love.update()
+function love.update(dt)
     if love.keyboard.isDown("escape") then
         love.event.quit()
     end
-
-    player.x = player.x + 5
-    if player.x > love.graphics.getWidth() then
-        player.x = 0
-    end
+    player:update(dt)
 end
 
 function love.draw()
