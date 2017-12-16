@@ -1,24 +1,26 @@
 local entity = {}
 
 local update = function(self, dt)
-    local moving = false
-    if love.keyboard.isDown("right") and not moving then self.x = self.x + self.speed * dt moving = true end
-    if love.keyboard.isDown("left") and not moving then self.x = self.x - self.speed * dt moving = true end
-    if love.keyboard.isDown("down") and not moving then self.y = self.y + self.speed * dt moving = true end
-    if love.keyboard.isDown("up") and not moving then self.y = self.y - self.speed * dt moving = true end
+    self.movement.update(self,dt)
+    self.drawX = self.x
+    self.drawY = self.y - self.z / 2
 end
 
 local draw = function(self)
-    self.sprite:draw(self.x, self.y)
+    self.sprite:draw(self.drawX, self.drawY)
 end
 
-function entity.create(sprite, x, y, speed)
+function entity.create(sprite, x, y, z, speed, movement)
     local inst = {}
 
     inst.sprite = sprite
     inst.x = x
     inst.y = y
+    inst.z = z
+    inst.drawX = x
+    inst.drawY = y - z / 2
     inst.speed = speed
+    inst.movement = movement
 
     inst.update = update
     inst.draw = draw
