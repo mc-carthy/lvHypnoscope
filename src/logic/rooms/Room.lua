@@ -1,7 +1,7 @@
 local room = {}
 
-local roomWidth = 800
-local roomHeight = 600
+local roomWidth = 270
+local roomHeight = 180
 
 local update = function(self, game, map)
     for _, entity in ipairs(self.entities) do
@@ -17,14 +17,15 @@ local update = function(self, game, map)
     end
 end
 
-local draw = function(self)
-    love.graphics.push("all")
-    love.graphics.setColor(unpack(self.colour))
-    love.graphics.rectangle("fill", 0, 0, roomWidth, roomHeight)
-    love.graphics.pop()
+local draw = function(self, view)
+    view:inContext(function()
+        love.graphics.setColor(unpack(self.colour))
+        love.graphics.rectangle("fill", 0, 0, roomWidth, roomHeight)
+    end)
+
 
     for _, entity in ipairs(self.entities) do
-        entity:draw()
+        entity:draw(view)
     end
 end
 

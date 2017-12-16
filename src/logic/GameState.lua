@@ -15,19 +15,20 @@ local update = function(self, dt)
 end
 
 local draw = function(self)
-    self.map:draw()
+    self.map:draw(self.view)
+    self.player:draw(self.view)
     for _, entity in ipairs(self.entities) do
-        entity:draw()
+        entity:draw(self.view)
     end
-    self.player:draw()
 end
 
-function gameState.create(player)
+function gameState.create(player, view)
     local inst = {}
 
     inst.entities = {}
     inst.player = player
     inst.map = Map.create()
+    inst.view = view
 
     inst.addEntity = addEntity
     inst.update = update

@@ -6,8 +6,8 @@ local update = function(self, game)
     self.drawY = self.y - self.z / 2
 end
 
-local draw = function(self)
-    self.sprite:draw(self.drawX, self.drawY)
+local draw = function(self, view)
+    self.sprite:draw(view, self.drawX, self.drawY)
 end
 
 local toPosition = function(self)

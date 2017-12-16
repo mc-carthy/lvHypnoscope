@@ -7,8 +7,8 @@ local update = function(self, game)
     self.rooms[self.roomIndex]:update(game, self)
 end
 
-local draw = function(self)
-    self.rooms[self.roomIndex]:draw()
+local draw = function(self, view)
+    self.rooms[self.roomIndex]:draw(view)
     love.graphics.printf("Room " .. self.roomIndex, love.graphics.getWidth() / 2 - 50, 40, 100, "center")
 end
 
@@ -37,7 +37,7 @@ end
 local previousRoom = function(self, game)
     if self.roomIndex > 1 then
         self.roomIndex = self.roomIndex - 1
-        game.player.x = 790
+        game.player.x = 260
     end
 end
 
@@ -46,7 +46,7 @@ map.create = function ()
 
     inst.roomIndex = 1
     inst.rooms = {}
-    inst.rooms[1] = Room.create({})
+    inst.rooms[1] = _createRoom()
 
     inst.nextRoom = nextRoom
     inst.previousRoom = previousRoom

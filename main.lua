@@ -2,8 +2,7 @@ local GameState = require("src.logic..GameState")
 local Entity = require("src.logic.Entity")
 local Sprite = require("src.graphics.Sprite")
 local KeyboardMovement = require("src.logic.ai.movement.KeyboardMovement")
-local Bounce = require("src.logic.ai.movement.Bounce")
-local FollowPlayer = require("src.logic.ai.movement.FollowPlayer")
+local View = require("src.graphics.View")
 
 local game
 
@@ -12,7 +11,7 @@ function love.load()
 
     local playerSprite = Sprite.create("assets/sprites/adventurer.png", 0, 0, 4, 4)
     local player = Entity.create(playerSprite, 50, 50, 0, 5, KeyboardMovement)
-    game = GameState.create(player)
+    game = GameState.create(player, View.create(270, 180))
 
 end
 
