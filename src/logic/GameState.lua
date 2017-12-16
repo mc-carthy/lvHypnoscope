@@ -12,6 +12,7 @@ local update = function(self, dt)
         entity:update(self)
     end
     self.player:update(self)
+    self.view:update(self)
 end
 
 local draw = function(self)
