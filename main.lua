@@ -17,7 +17,7 @@ function love.load()
     for i = 1, 2 do
         local randomX = math.random(love.graphics.getWidth())
         local randomY = math.random(love.graphics.getHeight())
-        local slime = Entity.create(slimeSprite, randomX, randomY, 0, 20, FollowPlayer)
+        local slime = Entity.create(slimeSprite, randomX, randomY, 0, 150, FollowPlayer)
         game:addEntity(slime)
     end
 
