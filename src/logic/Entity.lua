@@ -1,10 +1,11 @@
 local entity = {}
 
 local update = function(self, dt)
-    if love.keyboard.isDown("right") then self.x = self.x + self.speed * dt end
-    if love.keyboard.isDown("left") then self.x = self.x - self.speed * dt end
-    if love.keyboard.isDown("down") then self.y = self.y + self.speed * dt end
-    if love.keyboard.isDown("up") then self.y = self.y - self.speed * dt end
+    local moving = false
+    if love.keyboard.isDown("right") and not moving then self.x = self.x + self.speed * dt moving = true end
+    if love.keyboard.isDown("left") and not moving then self.x = self.x - self.speed * dt moving = true end
+    if love.keyboard.isDown("down") and not moving then self.y = self.y + self.speed * dt moving = true end
+    if love.keyboard.isDown("up") and not moving then self.y = self.y - self.speed * dt moving = true end
 end
 
 local draw = function(self)
