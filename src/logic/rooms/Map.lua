@@ -3,8 +3,12 @@ local Slime = require("src.mobs.Slime")
 
 local map = {}
 
+local currentRoom = function(self)
+    return self.rooms[self.roomIndex]
+end
+
 local update = function(self, game)
-    self.rooms[self.roomIndex]:update(game, self)
+    currentRoom(self):update(game, self)
 end
 
 local draw = function(self, view)
@@ -37,7 +41,7 @@ end
 local previousRoom = function(self, game)
     if self.roomIndex > 1 then
         self.roomIndex = self.roomIndex - 1
-        game.player.x = 260
+        game.player.x = currentRoom(self).roomWidth
     end
 end
 
@@ -50,6 +54,7 @@ map.create = function ()
 
     inst.nextRoom = nextRoom
     inst.previousRoom = previousRoom
+    inst.currentRoom = currentRoom
 
     inst.update = update
     inst.draw = draw
