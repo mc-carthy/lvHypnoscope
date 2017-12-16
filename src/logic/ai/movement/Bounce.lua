@@ -1,13 +1,13 @@
+local V = require("src.math.Vector2")
+
 local bounce = {}
 
 local bounceHeight = function(entity, game)
     local player = game.player
 
-    local playerX = player.x
-    local playerY = player.y
-    local dx = playerX - entity.x
-    local dy = playerY - entity.y
-    local dst = math.sqrt(math.pow(dx, 2) + math.pow(dy, 2))
+    local entityPosition = entity:toPosition()
+    local playerPosition = game.player:toPosition()
+    local dst = V.distance(entityPosition, playerPosition)
 
     if dst < 100 then 
         return 400 

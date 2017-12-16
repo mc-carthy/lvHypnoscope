@@ -3,25 +3,21 @@ local Entity = require("src.logic.Entity")
 local Sprite = require("src.graphics.Sprite")
 local KeyboardMovement = require("src.logic.ai.movement.KeyboardMovement")
 local Bounce = require("src.logic.ai.movement.Bounce")
+local FollowPlayer = require("src.logic.ai.movement.FollowPlayer")
 
-local player
-local playerSprite
-local slime
-local slimeSprite
+local game
 
 function love.load()
-    playerSprite = Sprite.create("assets/sprites/adventurer.png", 0, 0, 4, 4)
-    player = Entity.create(playerSprite, 50, 50, 0, 100, KeyboardMovement)
+    local playerSprite = Sprite.create("assets/sprites/adventurer.png", 0, 0, 4, 4)
+    local player = Entity.create(playerSprite, 50, 50, 0, 100, KeyboardMovement)
     game = GameState.create(player)
 
-    slimeSprite = Sprite.create("assets/sprites/slime.png", 0, 0, 4, 4)
-    slime = Entity.create(slimeSprite, 250, 100, 0, 300, Bounce)
-    slime2 = Entity.create(slimeSprite, 150, 300, 0, 200, Bounce)
+    local slimeSprite = Sprite.create("assets/sprites/slime.png", 0, 0, 4, 4)
 
-    for i = 1, 32 do
+    for i = 1, 2 do
         local randomX = math.random(love.graphics.getWidth())
         local randomY = math.random(love.graphics.getHeight())
-        local slime = Entity.create(slimeSprite, randomX, randomY, 0, 100, Bounce)
+        local slime = Entity.create(slimeSprite, randomX, randomY, 0, 20, FollowPlayer)
         game:addEntity(slime)
     end
 

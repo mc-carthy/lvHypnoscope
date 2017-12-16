@@ -10,6 +10,14 @@ local draw = function(self)
     self.sprite:draw(self.drawX, self.drawY)
 end
 
+local toPosition = function(self)
+    return {
+        x = self.x,
+        y = self.y,
+        z = self.z
+    }
+end
+
 function entity.create(sprite, x, y, z, speed, movement)
     local inst = {}
 
@@ -24,6 +32,7 @@ function entity.create(sprite, x, y, z, speed, movement)
 
     inst.update = update
     inst.draw = draw
+    inst.toPosition = toPosition
 
     return inst
 end
