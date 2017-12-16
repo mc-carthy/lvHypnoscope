@@ -1,3 +1,5 @@
+local Map = require("src.logic.rooms.Map")
+
 local gameState = {}
 
 local addEntity = function(self, entity)
@@ -5,6 +7,7 @@ local addEntity = function(self, entity)
 end
 
 local update = function(self, dt)
+    self.map:update(self)
     for _, entity in ipairs(self.entities) do
         entity:update(dt, self)
     end
@@ -12,6 +15,7 @@ local update = function(self, dt)
 end
 
 local draw = function(self)
+    self.map:draw()
     for _, entity in ipairs(self.entities) do
         entity:draw()
     end
@@ -23,6 +27,7 @@ function gameState.create(player)
 
     inst.entities = {}
     inst.player = player
+    inst.map = Map.create()
 
     inst.addEntity = addEntity
     inst.update = update
