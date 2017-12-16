@@ -10,17 +10,21 @@ local slime
 local slimeSprite
 
 function love.load()
-    game = GameState.create()
-
     playerSprite = Sprite.create("assets/sprites/adventurer.png", 0, 0, 4, 4)
     player = Entity.create(playerSprite, 50, 50, 0, 100, KeyboardMovement)
+    game = GameState.create(player)
+
     slimeSprite = Sprite.create("assets/sprites/slime.png", 0, 0, 4, 4)
     slime = Entity.create(slimeSprite, 250, 100, 0, 300, Bounce)
-    slime2 = Entity.create(slimeSprite, 150, 300, 0, 100, Bounce)
+    slime2 = Entity.create(slimeSprite, 150, 300, 0, 200, Bounce)
 
-    game:addEntity(player)
-    game:addEntity(slime)
-    game:addEntity(slime2)
+    for i = 1, 32 do
+        local randomX = math.random(love.graphics.getWidth())
+        local randomY = math.random(love.graphics.getHeight())
+        local slime = Entity.create(slimeSprite, randomX, randomY, 0, 100, Bounce)
+        game:addEntity(slime)
+    end
+
 end
 
 function love.update(dt)

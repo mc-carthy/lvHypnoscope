@@ -1,7 +1,7 @@
 local entity = {}
 
-local update = function(self, dt)
-    self.movement.update(self,dt)
+local update = function(self, dt, game)
+    self.movement.update(self, dt, game)
     self.drawX = self.x
     self.drawY = self.y - self.z / 2
 end
