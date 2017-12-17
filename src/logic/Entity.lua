@@ -1,15 +1,6 @@
+local Vector2 = require("src.math.Vector2")
+
 local entity = {}
-
-local update = function(self, game)
-    self.movement.update(self, game)
-    local theta = math.rad(45)
-    self.drawX = self.x + 0.5 * self.z * math.cos(theta)
-    self.drawY = self.y + 0.5 * self.z * math.sin(theta)
-end
-
-local draw = function(self, view)
-    self.sprite:draw(view, self.drawX, self.drawY)
-end
 
 local toPosition = function(self)
     return {
@@ -17,6 +8,17 @@ local toPosition = function(self)
         y = self.y,
         z = self.z
     }
+end
+
+local update = function(self, game)
+    self.movement.update(self, game)
+    local screenPos = Vector2.worldToScreen(toPosition(self))
+    self.drawX = screenPos.x
+    self.drawY = screenPos.y
+end
+
+local draw = function(self, view)
+    self.sprite:draw(view, self.drawX, self.drawY)
 end
 
 function entity.create(sprite, x, y, z, speed, movement)
