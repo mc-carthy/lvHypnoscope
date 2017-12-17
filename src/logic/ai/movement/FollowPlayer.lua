@@ -8,11 +8,11 @@ followPlayer.update = function(entity, game)
 
     local dst = V.distance(entityPos, playerPos)
     -- TODO remove the hard-coded threshold below
-    if dst > 10 then
+    if dst > 1 then
         local unitV = V.normalise(entityPos, playerPos)
 
-        entity.x = entity.x + unitV.x * entity.speed
-        entity.z = entity.z + unitV.z * entity.speed
+        entity.x = entity.x + unitV.x * entity.speed * game.dt
+        entity.z = entity.z + unitV.z * entity.speed * game.dt
     end
 end
 
