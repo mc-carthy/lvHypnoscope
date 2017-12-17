@@ -4,6 +4,8 @@ local Tilemap = require("src.logic.rooms.Tilemap")
 local room = {}
 
 local walkable = function(self, x, y)
+    if x < 0 or y < 0 then return false end
+
     local tileChar = self.tilemap:getTile(x, y, self.tilesheet.tileSize)
     return (tileChar == "," or tileChar == ".")
 end
@@ -13,11 +15,11 @@ local update = function(self, game, map)
         entity:update(game)
     end
 
-    if game.player.x > self.roomWidth then
+    if game.player.x > self.roomWidth - self.tilesheet.tileSize then
         map:nextRoom(game)
     end
 
-    if game.player.x < 0 then
+    if game.player.x < self.tilesheet.tileSize then
         map:previousRoom(game)
     end
 end
