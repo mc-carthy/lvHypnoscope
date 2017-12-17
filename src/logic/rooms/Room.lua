@@ -30,7 +30,7 @@ room.create = function (entities)
     local inst = {}
 
 
-    inst.roomWidth = 270
+    inst.roomWidth = 400
     inst.roomHeight = 180
 
     inst.colour = {

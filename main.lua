@@ -4,10 +4,12 @@ local Sprite = require("src.graphics.Sprite")
 local KeyboardMovement = require("src.logic.ai.movement.KeyboardMovement")
 local View = require("src.graphics.View")
 local Tilesheet = require("src.graphics.Tilesheet")
+local Tilemap = require("src.logic.rooms.Tilemap")
 
 local game
 local tiles
 local view
+local tilemap
 
 function love.load()
     math.randomseed(os.time())
@@ -18,6 +20,7 @@ function love.load()
     local player = Entity.create(playerSprite, 50, 50, 0, 5, KeyboardMovement)
     view = View.create(270, 180, 0, 0)
     game = GameState.create(player, view)
+    tilemap = Tilemap.create()
 
 end
 
@@ -30,5 +33,5 @@ end
 
 function love.draw()
     game:draw()
-    tiles:drawTile(view, 50, 50, 1, 1)
+    tilemap:draw(view, tiles)
 end
