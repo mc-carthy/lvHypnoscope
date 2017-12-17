@@ -3,6 +3,11 @@ local Tilemap = require("src.logic.rooms.Tilemap")
 
 local room = {}
 
+local walkable = function(self, x, y)
+    local tileChar = self.tilemap:getTile(x, y, self.tilesheet.tileSize)
+    return (tileChar == "," or tileChar == ".")
+end
+
 local update = function(self, game, map)
     for _, entity in ipairs(self.entities) do
         entity:update(game)
@@ -44,6 +49,7 @@ room.create = function (entities)
 
     inst.entities = entities
 
+    inst.walkable = walkable
     inst.update = update
     inst.draw = draw
 

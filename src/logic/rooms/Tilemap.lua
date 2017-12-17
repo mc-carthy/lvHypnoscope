@@ -1,5 +1,13 @@
 local tilemap = {}
 
+local getTile = function(self, x, y, tileSize)
+    local i = (math.floor(x / tileSize) + math.floor((y / tileSize)) * self.tilesWide) + 1
+
+    self.lastGotTile = i
+
+    return self.map:sub(i,i)
+end
+
 local draw = function(self, view, tilesheet)
     for i = 1, #self.map do
         local char = self.map:sub(i,i)
@@ -13,6 +21,12 @@ local draw = function(self, view, tilesheet)
         if char == "." then tilesheet:drawTile(view, x, y, 1, 2) end
         if char == "," then tilesheet:drawTile(view, x, y, 2, 2) end
         if char == "s" then tilesheet:drawTile(view, x, y, 4, 2) end
+
+        if DEBUG and i == self.lastGotTile then
+            view:inContext(function()
+                love.graphics.rectangle("line", x, y, tilesheet.tileSize, tilesheet.tileSize)
+            end)
+        end
     end
 end
 
@@ -21,6 +35,7 @@ tilemap.create = function()
 
     inst.tilesWide = 50
     inst.tilesHigh = 22
+    inst.lastGotTile = 0
 
     local map = [[
         ^^^^^^^^^^^^^^^^^^^^^^^XXXX^^^^^^^^^^^^^^^^^^^^^^^
@@ -51,6 +66,7 @@ tilemap.create = function()
     local nothing = ""
     inst.map = map:gsub(whitespace, nothing)
 
+    inst.getTile = getTile
     inst.draw = draw
 
     return inst

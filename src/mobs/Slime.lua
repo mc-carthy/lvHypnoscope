@@ -5,7 +5,7 @@ local FollowPlayer = require("src.logic.ai.movement.FollowPlayer")
 local Slime = {}
 
 local slimeSprite = Sprite.create("assets/sprites/slime.png")
-local speed = 4
+local speed = 1
 
 Slime.create = function(xPos, yPos)
     return Entity.create(slimeSprite, xPos, yPos, 0, speed, FollowPlayer)
