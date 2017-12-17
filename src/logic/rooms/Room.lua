@@ -1,3 +1,6 @@
+local TileSheet = require("src.graphics.TileSheet")
+local Tilemap = require("src.logic.rooms.Tilemap")
+
 local room = {}
 
 local update = function(self, game, map)
@@ -15,10 +18,8 @@ local update = function(self, game, map)
 end
 
 local draw = function(self, view)
-    view:inContext(function()
-        love.graphics.setColor(unpack(self.colour))
-        love.graphics.rectangle("fill", 0, 0, self.roomWidth, self.roomHeight)
-    end)
+    self.tilemap:draw(view, self.tilesheet)
+
 
 
     for _, entity in ipairs(self.entities) do
@@ -29,9 +30,11 @@ end
 room.create = function (entities)
     local inst = {}
 
+    inst.tilesheet = TileSheet.create("assets/sprites/tiles/numbers.png", 8)
+    inst.tilemap = Tilemap.create()
 
-    inst.roomWidth = 400
-    inst.roomHeight = 180
+    inst.roomWidth = 50 * inst.tilesheet.tileSize
+    inst.roomHeight = 22 * inst.tilesheet.tileSize
 
     inst.colour = {
         math.random(255),
