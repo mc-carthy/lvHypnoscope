@@ -6,11 +6,12 @@ function keyboardMovement.update(entity, game)
     local dx = 0
     local dz = 0
     local currentRoom = game.map:currentRoom()
+    local isMoving = false
 
-    if love.keyboard.isDown("right") then dx = entity.speed end
-    if love.keyboard.isDown("left") then dx = -entity.speed end
-    if love.keyboard.isDown("down") then dz = entity.speed end
-    if love.keyboard.isDown("up") then dz = -entity.speed end
+    if love.keyboard.isDown("right") and not isMoving then dx = entity.speed isMoving = true end
+    if love.keyboard.isDown("left") and not isMoving then dx = -entity.speed isMoving = true end
+    if love.keyboard.isDown("down") and not isMoving then dz = entity.speed isMoving = true end
+    if love.keyboard.isDown("up") and not isMoving then dz = -entity.speed isMoving = true end
 
     newX = entity.x + dx
     newZ = entity.z + dz
