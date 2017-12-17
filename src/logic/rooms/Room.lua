@@ -30,7 +30,7 @@ end
 room.create = function (entities)
     local inst = {}
 
-    inst.tilesheet = TileSheet.create("assets/sprites/tiles/numbers.png", 8)
+    inst.tilesheet = TileSheet.create("assets/sprites/tiles/dungeonPalette.png", 8)
     inst.tilemap = Tilemap.create()
 
     inst.roomWidth = 50 * inst.tilesheet.tileSize
