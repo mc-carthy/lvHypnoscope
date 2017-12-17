@@ -1,12 +1,14 @@
 local TileSheet = require("src.graphics.TileSheet")
 local Tilemap = require("src.logic.rooms.Tilemap")
+local V = require("src.math.Vector2")
 
 local room = {}
 
-local walkable = function(self, x, y)
-    if x < 0 or y < 0 then return false end
+local walkable = function(self, x, z)
+    local screenPos = V.worldToScreen({ x = x, y = 0, z = z })
+    if screenPos.x < 0 or screenPos.y < 0 then return false end
 
-    local tileChar = self.tilemap:getTile(x, y, self.tilesheet.tileSize)
+    local tileChar = self.tilemap:getTile(screenPos.x, screenPos.y, self.tilesheet.tileSize)
     return (tileChar == "," or tileChar == ".")
 end
 

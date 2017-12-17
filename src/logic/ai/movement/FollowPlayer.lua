@@ -19,9 +19,8 @@ followPlayer.update = function(entity, game)
 
         local newX = entity.x + dx
         local newZ = entity.z + dz
-        local screenPos = V.worldToScreen({ x = newX, y = 0, z = newZ})
 
-        if room:walkable(screenPos.x, screenPos.y) then
+        if room:walkable(newX, newZ) then
             entity.x = newX
             entity.z = newZ
         end

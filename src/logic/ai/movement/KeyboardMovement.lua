@@ -16,9 +16,7 @@ function keyboardMovement.update(entity, game)
     newX = entity.x + dx * game.dt
     newZ = entity.z + dz * game.dt
 
-    local screenPos = Vector2.worldToScreen({ x = newX, y = entity.y, z = newZ })
-
-    if currentRoom:walkable(screenPos.x, screenPos.y) then
+    if currentRoom:walkable(newX, newZ) then
         entity.x = newX
         entity.z = newZ
     end
