@@ -7,8 +7,8 @@ local Slime = {}
 local slimeSprite = Sprite.create("assets/sprites/slime.png")
 local speed = 1
 
-Slime.create = function(xPos, yPos)
-    return Entity.create(slimeSprite, xPos, yPos, 0, speed, FollowPlayer)
+Slime.create = function(xPos, yPos, zPos)
+    return Entity.create(slimeSprite, xPos, yPos, zPos, speed, FollowPlayer)
 end
 
 return Slime

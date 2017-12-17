@@ -5,18 +5,18 @@ local vector2 = {}
 
 vector2.distance = function(from, to)
     dx = to.x - from.x
-    dy = to.y - from.y
-    return sqrt(pow(dx, 2) + pow(dy, 2))
+    dz = to.z - from.z
+    return sqrt(pow(dx, 2) + pow(dz, 2))
 end
 
 vector2.normalise = function(from, to)
     local dx = to.x - from.x
-    local dy = to.y - from.y
+    local dz = to.z - from.z
     local dst = vector2.distance(from, to)
 
     return {
         x = dx / dst,
-        y = dy / dst
+        z = dz / dst
     }
 end
 

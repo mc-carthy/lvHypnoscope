@@ -12,7 +12,7 @@ followPlayer.update = function(entity, game)
         local unitV = V.normalise(entityPos, playerPos)
 
         entity.x = entity.x + unitV.x * entity.speed
-        entity.y = entity.y + unitV.y * entity.speed
+        entity.z = entity.z + unitV.z * entity.speed
     end
 end
 

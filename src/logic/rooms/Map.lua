@@ -20,9 +20,9 @@ local _createRoom = function()
     local entities = {}
 
     for i = 1, 5 do
-        local xPos = math.random(800)
-        local yPos = math.random(600)
-        entities[i] = Slime.create(xPos, yPos)
+        local xPos = math.random(100) + 100
+        local zPos = math.random(50) + 100
+        entities[i] = Slime.create(xPos, 0, zPos)
     end
 
     return Room.create(entities)
