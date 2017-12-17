@@ -22,6 +22,8 @@ function keyboardMovement.update(entity, game)
         entity.x = newX
         entity.z = newZ
     end
+
+    game.debugString = math.floor(entity.x) .. ", " .. math.floor(entity.y) .. ", " .. math.floor(entity.z)
 end
 
 return keyboardMovement

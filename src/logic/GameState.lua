@@ -22,6 +22,9 @@ local draw = function(self)
     for _, entity in ipairs(self.entities) do
         entity:draw(self.view)
     end
+    if DEBUG then
+        love.graphics.print(self.debugString)
+    end
 end
 
 function gameState.create(player, view)
@@ -32,6 +35,7 @@ function gameState.create(player, view)
     inst.map = Map.create()
     inst.view = view
     inst.dt = 0
+    inst.debugString = ""
 
     inst.addEntity = addEntity
     inst.update = update

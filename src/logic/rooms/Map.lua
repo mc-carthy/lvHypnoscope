@@ -33,7 +33,10 @@ local nextRoom = function(self, game)
         table.insert(self.rooms, _createRoom())
     end
 
-    game.player.x = 8 + 1
+    local newRoom = self.rooms[self.roomIndex + 1]
+
+    game.player.x = newRoom.entranceX
+    game.player.z = newRoom.entranceZ
 
     self.roomIndex = self.roomIndex + 1
 end
@@ -41,7 +44,9 @@ end
 local previousRoom = function(self, game)
     if self.roomIndex > 1 then
         self.roomIndex = self.roomIndex - 1
-        game.player.x = currentRoom(self).roomWidth - (8 + 1)
+        local newRoom = currentRoom(self)
+        game.player.x = newRoom.exitX
+        game.player.z = newRoom.exitZ
     end
 end
 
