@@ -2,8 +2,9 @@ local entity = {}
 
 local update = function(self, game)
     self.movement.update(self, game)
-    self.drawX = self.x
-    self.drawY = self.y - self.z / 2
+    local theta = math.rad(45)
+    self.drawX = self.x + 0.5 * self.z * math.cos(theta)
+    self.drawY = self.y + 0.5 * self.z * math.sin(theta)
 end
 
 local draw = function(self, view)
