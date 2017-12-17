@@ -13,7 +13,7 @@ function love.load()
 
 
     local playerSprite = Sprite.create("assets/sprites/adventurer.png", 0, 0, 4, 4)
-    local player = Entity.create(playerSprite, 50, 50, 0, 2, KeyboardMovement)
+    local player = Entity.create(playerSprite, 50, 50, 0, 80, KeyboardMovement)
     view = View.create(270, 180, 0, 0)
     game = GameState.create(player, view)
 

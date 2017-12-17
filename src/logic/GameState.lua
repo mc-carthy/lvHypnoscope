@@ -7,6 +7,7 @@ local addEntity = function(self, entity)
 end
 
 local update = function(self, dt)
+    self.dt = dt
     self.map:update(self)
     for _, entity in ipairs(self.entities) do
         entity:update(self)
@@ -30,6 +31,7 @@ function gameState.create(player, view)
     inst.player = player
     inst.map = Map.create()
     inst.view = view
+    inst.dt = 0
 
     inst.addEntity = addEntity
     inst.update = update

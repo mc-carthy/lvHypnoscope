@@ -13,8 +13,8 @@ function keyboardMovement.update(entity, game)
     if love.keyboard.isDown("down") and not isMoving then dz = entity.speed isMoving = true end
     if love.keyboard.isDown("up") and not isMoving then dz = -entity.speed isMoving = true end
 
-    newX = entity.x + dx
-    newZ = entity.z + dz
+    newX = entity.x + dx * game.dt
+    newZ = entity.z + dz * game.dt
 
     local screenPos = Vector2.worldToScreen({ x = newX, y = entity.y, z = newZ })
 
