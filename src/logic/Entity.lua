@@ -3,6 +3,13 @@ local Rectangle = require("src.math.Rectangle")
 
 local entity = {}
 
+local collisionCheck = function(self, other)
+    if self == other then return end
+    if self.boundingBox:overlaps(other.boundingBox) then
+        self.debugColour = { 191, 0, 0 }
+    end
+end
+
 local toPosition = function(self)
     return {
         x = self.x,
@@ -28,6 +35,7 @@ local draw = function(self, view)
     if DEBUG then
         view:inContext(function()
             love.graphics.print(_positionString(self), self.drawX, self.drawY)
+            if self.debugColour then love.graphics.setColor(self.debugColour) end
             love.graphics.polygon("line", self.boundingBox:getPoints())
         end)
     end
@@ -54,6 +62,7 @@ function entity.create(sprite, x, y, z, speed, movement)
     inst.update = update
     inst.draw = draw
     inst.toPosition = toPosition
+    inst.collisionCheck = collisionCheck
 
     return inst
 end

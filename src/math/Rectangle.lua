@@ -2,9 +2,24 @@ local V = require("src.math.Vector2")
 
 local rectangle = {}
 
+local _overlap = function(min1, min2, max1, max2)
+    return min1 < max2 and max1 > min2
+end
+
 local update = function(self, x, z)
     self.x = x - self.xOffset
     self.z = z - self.zOffset
+end
+
+local overlaps = function(self, other)
+    local xOverlap = _overlap(
+        self.x, other.x, self.x + self.width, other.x + other.width
+    )
+    local zOverlap = _overlap(
+        self.z, other.z, self.z + self.height, other.z + other.height
+    )
+
+    return xOverlap and zOverlap
 end
 
 local getPoints = function(self)
@@ -33,6 +48,7 @@ rectangle.create = function(x, z, width, height)
     inst.height = height
 
     inst.getPoints = getPoints
+    inst.overlaps = overlaps
     inst.update = update
 
     return inst
