@@ -1,4 +1,5 @@
 local Vector2 = require("src.math.Vector2")
+local Rectangle = require("src.math.Rectangle")
 
 local entity = {}
 
@@ -16,6 +17,7 @@ end
 
 local update = function(self, game)
     self.movement.update(self, game)
+    self.boundingBox:update(self.x, self.z)
     local screenPos = Vector2.worldToScreen(toPosition(self))
     self.drawX = screenPos.x
     self.drawY = screenPos.y
@@ -26,6 +28,7 @@ local draw = function(self, view)
     if DEBUG then
         view:inContext(function()
             love.graphics.print(_positionString(self), self.drawX, self.drawY)
+            love.graphics.polygon("line", self.boundingBox:getPoints())
         end)
     end
 end
@@ -41,6 +44,12 @@ function entity.create(sprite, x, y, z, speed, movement)
     inst.drawY = y - z / 2
     inst.speed = speed
     inst.movement = movement
+    inst.boundingBox = Rectangle.create(
+        x,
+        z,
+        sprite.image:getWidth(),
+        sprite.image:getHeight()
+    )
 
     inst.update = update
     inst.draw = draw
