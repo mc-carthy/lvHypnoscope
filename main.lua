@@ -14,6 +14,10 @@ function love.load()
 
 end
 
+function love.keypressed(key)
+    game:keyPressed(key)
+end
+
 function love.update(dt)
     if love.keyboard.isDown("escape") then
         love.event.quit()

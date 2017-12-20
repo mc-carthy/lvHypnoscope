@@ -6,6 +6,12 @@ local addEntity = function(self, entity)
     table.insert(self.entities, entity)
 end
 
+local keyPressed = function(self, key)
+    if key == "z" then
+        self.player:action1(self)
+    end
+end
+
 local update = function(self, dt)
     self.dt = dt
     self.map:update(self)
@@ -38,6 +44,7 @@ function gameState.create(player, view)
     inst.debugString = ""
 
     inst.addEntity = addEntity
+    inst.keyPressed = keyPressed
     inst.update = update
     inst.draw = draw
 

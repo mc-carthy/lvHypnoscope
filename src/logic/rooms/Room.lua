@@ -47,6 +47,10 @@ local draw = function(self, view)
     end
 end
 
+local addEntity = function(self, entity)
+    table.insert(self.entities, entity)
+end
+
 room.create = function (entities)
     local inst = {}
 
@@ -69,6 +73,7 @@ room.create = function (entities)
     inst.entities = entities
 
     inst.walkable = walkable
+    inst.addEntity = addEntity
     inst.update = update
     inst.draw = draw
 
