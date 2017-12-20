@@ -3,10 +3,11 @@ local Rectangle = require("src.math.Rectangle")
 
 local entity = {}
 
-local collisionCheck = function(self, other)
+local collisionCheck = function(self, other, game)
     if self == other then return end
     if self.boundingBox:overlaps(other.boundingBox) then
         self.debugColour = { 191, 0, 0 }
+        if self.collision then self:collision(other, game) end
     end
 end
 
@@ -41,7 +42,7 @@ local draw = function(self, view)
     end
 end
 
-function entity.create(sprite, x, y, z, speed, movement)
+function entity.create(sprite, x, y, z, speed, movement, collision)
     local inst = {}
 
     inst.sprite = sprite
@@ -52,6 +53,8 @@ function entity.create(sprite, x, y, z, speed, movement)
     inst.drawY = y - z / 2
     inst.speed = speed
     inst.movement = movement
+    inst.collision = collision
+
     inst.boundingBox = Rectangle.create(
         x,
         z,

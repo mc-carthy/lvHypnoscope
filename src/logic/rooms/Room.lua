@@ -15,10 +15,10 @@ end
 local update = function(self, game, map)
     for _, entity in ipairs(self.entities) do
         entity:update(game)
-        game.player:collisionCheck(entity)
-        entity:collisionCheck(game.player)
+        game.player:collisionCheck(entity, game)
+        entity:collisionCheck(game.player, game)
         for _, otherEntity in ipairs(self.entities) do
-            if entity:collisionCheck(otherEntity) then
+            if entity:collisionCheck(otherEntity, game) then
 
             end
         end
