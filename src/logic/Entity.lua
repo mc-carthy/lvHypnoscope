@@ -45,6 +45,7 @@ end
 function entity.create(sprite, x, y, z, speed, movement, collision)
     local inst = {}
 
+    inst.finished = false
     inst.sprite = sprite
     inst.x = x
     inst.y = y

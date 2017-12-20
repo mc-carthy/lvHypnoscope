@@ -26,7 +26,9 @@ local _createRoom = function()
         entities[i] = Slime.create(xPos, 0, zPos)
     end
 
-    table.insert(entities, MagicPotion.create(150, 0, 125))
+    for i = 1, 5 do
+        table.insert(entities, MagicPotion.create(150 + i * 15, 0, 125))
+    end
 
     return Room.create(entities)
 end

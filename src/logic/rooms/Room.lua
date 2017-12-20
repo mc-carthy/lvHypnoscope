@@ -15,7 +15,7 @@ end
 local update = function(self, game, map)
     for i, entity in ipairs(self.entities) do
 
-        if entity.isDone then
+        if entity.finished then
             table.remove(self.entities, i)
             break
         end

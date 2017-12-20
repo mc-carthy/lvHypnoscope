@@ -15,7 +15,7 @@ local collision = function(self, other, game)
 end
 
 local done = function(self)
-    self.isDone = true
+    self.finished = true
 end
 
 magicPotion.create = function(x, y, z)
