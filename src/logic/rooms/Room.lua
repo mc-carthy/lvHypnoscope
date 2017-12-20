@@ -13,14 +13,18 @@ local walkable = function(self, x, z)
 end
 
 local update = function(self, game, map)
-    for _, entity in ipairs(self.entities) do
+    for i, entity in ipairs(self.entities) do
+
+        if entity.isDone then
+            table.remove(self.entities, i)
+            break
+        end
+
         entity:update(game)
         game.player:collisionCheck(entity, game)
         entity:collisionCheck(game.player, game)
         for _, otherEntity in ipairs(self.entities) do
-            if entity:collisionCheck(otherEntity, game) then
-
-            end
+            entity:collisionCheck(otherEntity, game)
         end
     end
 

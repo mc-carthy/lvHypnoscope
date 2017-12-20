@@ -10,7 +10,12 @@ local collision = function(self, other, game)
     print("Magic Potion Collision!")
     if other == game.player then
         potionSfx:play()
+        self:done()
     end
+end
+
+local done = function(self)
+    self.isDone = true
 end
 
 magicPotion.create = function(x, y, z)
@@ -21,6 +26,8 @@ magicPotion.create = function(x, y, z)
         nil,
         collision
     )
+
+    inst.done = done
 
     return inst
 end
