@@ -23,7 +23,7 @@ local _positionString = function(self)
 end
 
 local update = function(self, game)
-    self.movement.update(self, game)
+    if self.movement then self.movement.update(self, game) end
     self.boundingBox:update(self.x, self.z)
     local screenPos = Vector2.worldToScreen(toPosition(self))
     self.drawX = screenPos.x
