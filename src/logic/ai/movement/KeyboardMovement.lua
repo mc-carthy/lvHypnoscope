@@ -3,6 +3,8 @@ local Vector2 = require("src.math.Vector2")
 local keyboardMovement = {}
 
 function keyboardMovement.update(entity, game)
+    if entity.interruptMovement then return end
+
     local dx = 0
     local dz = 0
     local currentRoom = game.map:currentRoom()
