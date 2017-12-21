@@ -24,6 +24,7 @@ local _positionString = function(self)
 end
 
 local update = function(self, game)
+    if self.timer then self.timer:tick(self, game) end
     if self.movement then self.movement.update(self, game) end
     self.boundingBox:update(self.x, self.z)
     local screenPos = Vector2.worldToScreen(toPosition(self))
@@ -40,6 +41,18 @@ local draw = function(self, view)
             love.graphics.polygon("line", self.boundingBox:getPoints())
         end)
     end
+end
+
+local done = function (self)
+  self.finished = true
+end
+
+local addTimer = function(self, timer)
+    self.timer = timer
+end
+
+local removeTimer = function(self)
+    self.timer = nil
 end
 
 function entity.create(sprite, x, y, z, speed, movement, collision)
@@ -65,8 +78,11 @@ function entity.create(sprite, x, y, z, speed, movement, collision)
 
     inst.update = update
     inst.draw = draw
+    inst.done = done
     inst.toPosition = toPosition
     inst.collisionCheck = collisionCheck
+    inst.addTimer = addTimer
+    inst.removeTimer = removeTimer
 
     return inst
 end
