@@ -1,10 +1,14 @@
 local timer = {}
 
+timer.ticks = function(frames)
+    return frames * (1 / 60)
+end
+
 local tick = function(self, owner, game)
     -- TODO: Refactor using dt
-    self.ticks = self.ticks + 1
+    self.time = self.time + game.dt
 
-    if self.ticks == self.duration then
+    if self.time >= self.duration then
         self:onDone(owner, game)
         owner:removeTimer()
     end
@@ -13,7 +17,7 @@ end
 timer.create = function(duration, onDone)
     local inst = {}
 
-    inst.ticks = 0
+    inst.time = 0
     inst.duration = duration
     inst.onDone = onDone
 

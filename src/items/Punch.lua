@@ -17,7 +17,7 @@ punch.create = function(x, y, z)
     local punch = Entity.create(punchSprite, x, y, z, 0, nil, collision)
     love.audio.play(punchSfx)
 
-    local t = Timer.create(6, function(t, ent, game)
+    local t = Timer.create(Timer.ticks(6), function(t, ent, game)
         ent:done()
     end)
 

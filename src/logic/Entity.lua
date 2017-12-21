@@ -71,7 +71,7 @@ local takeDamage = function(self, damage)
         else
             self.vulnerable = false
             self.iframes = true
-            self:addTimer(Timer.create(10, function(self, entity, game)
+            self:addTimer(Timer.create(Timer.ticks(20), function(self, entity, game)
                 entity.vulnerable = true
                 entity.iframes = false
             end))
@@ -94,6 +94,7 @@ function entity.create(sprite, x, y, z, speed, movement, collision)
     inst.speed = speed
     inst.movement = movement
     inst.collision = collision
+    inst.interruptMovement = false
     inst.iframes = false
     inst.visible = true
 

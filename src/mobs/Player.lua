@@ -13,7 +13,7 @@ local action1 = function(self, game)
     -- TODO: Replace hard-coded value below, half sprite width
     currentRoom:addEntity(Punch.create(self.x + 8, self.y, self.z))
     self.interruptMovement = true
-    local t = Timer.create(5, function(_, owner, game)
+    local t = Timer.create(Timer.ticks(5), function(_, owner, game)
         owner.interruptMovement = false
     end)
     self:addTimer(t)
