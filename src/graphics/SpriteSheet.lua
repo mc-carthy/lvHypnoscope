@@ -1,3 +1,5 @@
+local Animation = require("src.graphics.Animation")
+
 local spriteSheet = {}
 
 local draw = function(self, view, x, y)
@@ -5,7 +7,7 @@ local draw = function(self, view, x, y)
         local xOffset = self.image:getWidth() / 2
         local yOffset = self.image:getHeight() / 2
 
-        love.graphics.draw(self.image, self.sprites[self.currentSprite], x - xOffset, y - yOffset)
+        love.graphics.draw(self.image, self.sprites[self.animation:frame()], x - xOffset, y - yOffset)
 
         if DEBUG then
             love.graphics.rectangle("fill", x, y, 1, 1)
@@ -14,12 +16,7 @@ local draw = function(self, view, x, y)
 end
 
 local update = function(self, game)
-    self.frameCount = self.frameCount + game.dt
-    if self.frameCount > self.frameTime then
-        self.frameCount = 0
-        self.currentSprite = self.currentSprite + 1
-        if self.currentSprite > self.maxSprites then self.currentSprite = 1 end
-    end
+    self.animation:update(game)
 end
 
 spriteSheet.create = function(imagePath, spriteSize)
@@ -29,8 +26,7 @@ spriteSheet.create = function(imagePath, spriteSize)
     inst.image:setFilter("nearest", "nearest")
     inst.sprites = {}
     inst.currentSprite = 2
-    inst.frameTime = 15 * (1 / 60)
-    inst.frameCount = 0
+    inst.animation = Animation.create({1, 2}, 15)
 
     local spritesWide = inst.image:getWidth() / spriteSize
     local spritesHigh = inst.image:getHeight() / spriteSize
