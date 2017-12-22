@@ -32,6 +32,7 @@ local update = function(self, game)
     end
     if self.timer then self.timer:tick(self, game) end
     if self.movement then self.movement.update(self, game) end
+    if self.sprite.update then self.sprite:update(game) end
     self.boundingBox:update(self.x, self.z)
     local screenPos = Vector2.worldToScreen(toPosition(self))
     self.drawX = screenPos.x
