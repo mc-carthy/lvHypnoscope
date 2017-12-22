@@ -27,4 +27,7 @@ animation.create = function(frames, updatesPerFrame)
     return inst
 end
 
+animation.WALK = animation.create({1, 2}, 15)
+animation.STAND = animation.create({1}, 15)
+
 return animation

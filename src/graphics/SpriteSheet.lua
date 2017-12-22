@@ -1,5 +1,3 @@
-local Animation = require("src.graphics.Animation")
-
 local spriteSheet = {}
 
 local draw = function(self, view, x, y)
@@ -15,18 +13,24 @@ local draw = function(self, view, x, y)
     end)
 end
 
+local setAnimation = function(self, newAnimation)
+    if newAnimation ~= self.animation then
+        self.animation = newAnimation
+    end
+end
+
 local update = function(self, game)
     self.animation:update(game)
 end
 
-spriteSheet.create = function(imagePath, spriteSize)
+spriteSheet.create = function(imagePath, spriteSize, animation)
     local inst = {}
 
     inst.image = love.graphics.newImage(imagePath)
     inst.image:setFilter("nearest", "nearest")
     inst.sprites = {}
     inst.currentSprite = 2
-    inst.animation = Animation.create({1, 2}, 15)
+    inst.animation = animation
 
     local spritesWide = inst.image:getWidth() / spriteSize
     local spritesHigh = inst.image:getHeight() / spriteSize
@@ -39,6 +43,7 @@ spriteSheet.create = function(imagePath, spriteSize)
 
     inst.update = update
     inst.draw = draw
+    inst.setAnimation = setAnimation
 
     return inst
 end
