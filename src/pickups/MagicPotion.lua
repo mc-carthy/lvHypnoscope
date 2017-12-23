@@ -17,10 +17,10 @@ local done = function(self)
     self.finished = true
 end
 
-magicPotion.create = function(x, y, z)
+magicPotion.create = function(pos)
     local inst = Entity.create(
         potionSprite,
-        x, y, z,
+        pos,
         0,
         nil,
         collision

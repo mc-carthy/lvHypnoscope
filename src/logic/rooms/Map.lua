@@ -1,6 +1,7 @@
 local Room = require("src.logic.rooms.Room")
 local Slime = require("src.mobs.Slime")
 local MagicPotion = require("src.pickups.MagicPotion")
+local Position = require("src.logic.Position")
 
 local map = {}
 
@@ -23,11 +24,11 @@ local _createRoom = function()
     for i = 1, 5 do
         local xPos = math.random(100) + 100
         local zPos = math.random(50) + 100
-        entities[i] = Slime.create(xPos, 0, zPos)
+        entities[i] = Slime.create(Position.create(xPos, 0, zPos))
     end
 
     for i = 1, 5 do
-        table.insert(entities, MagicPotion.create(150 + i * 15, 0, 125))
+        table.insert(entities, MagicPotion.create(Position.create(150 + i * 15, 0, 125)))
     end
 
     return Room.create(entities)

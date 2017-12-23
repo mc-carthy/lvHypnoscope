@@ -1,7 +1,5 @@
-local Vector2 = require("src.math.Vector2")
 local Rectangle = require("src.math.Rectangle")
 local Timer = require("src.logic.Timer")
-local Position = require("src.logic.Position")
 
 local entity = {}
 
@@ -66,12 +64,12 @@ local takeDamage = function(self, damage)
     end
 end
 
-function entity.create(sprite, x, y, z, speed, movement, collision)
+function entity.create(sprite, position, speed, movement, collision)
     local inst = {}
 
     inst.finished = false
     inst.sprite = sprite
-    inst.position = Position.create(x, y, z)
+    inst.position = position
     inst.vulnerable = true
     inst.hp = 5
     inst.speed = speed

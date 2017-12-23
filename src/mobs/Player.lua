@@ -4,6 +4,7 @@ local KeyboardMovement = require("src.logic.ai.movement.KeyboardMovement")
 local Punch = require("src.items.Punch")
 local Timer = require("src.logic.Timer")
 local Animation = require("src.graphics.Animation")
+local Position = require("src.logic.Position")
 
 local player = {}
 
@@ -11,8 +12,9 @@ local playerSprite = SpriteSheet.create("assets/sprites/adventurer.png", 16, Ani
 
 local action1 = function(self, game)
     local currentRoom = game.map:currentRoom()
+    local pos = self.position
     -- TODO: Replace hard-coded value below, half sprite width
-    currentRoom:addEntity(Punch.create(self.position.x + 8, self.position.y, self.position.z))
+    currentRoom:addEntity(Punch.create(Position.create(pos.x + 8, pos.y, pos.z)))
     self.interruptMovement = true
     local t = Timer.create(Timer.ticks(5), function(_, owner, game)
         owner.interruptMovement = false
@@ -21,7 +23,7 @@ local action1 = function(self, game)
 end
 
 player.create = function()
-    local player = Entity.create(playerSprite, 50, 0, 100, 80, KeyboardMovement)
+    local player = Entity.create(playerSprite, Position.create(50, 0, 100), 80, KeyboardMovement)
 
     player.action1 = action1
 

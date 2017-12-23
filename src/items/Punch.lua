@@ -13,8 +13,8 @@ local collision = function(self, other, game)
     end
 end
 
-punch.create = function(x, y, z)
-    local punch = Entity.create(punchSprite, x, y, z, 0, nil, collision)
+punch.create = function(pos)
+    local punch = Entity.create(punchSprite, pos, 0, nil, collision)
     love.audio.play(punchSfx)
 
     local t = Timer.create(Timer.ticks(6), function(t, ent, game)
