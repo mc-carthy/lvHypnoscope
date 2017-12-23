@@ -60,12 +60,17 @@ local takeDamage = function(self, damage)
         if self.hp <= 0 then
             self:done()
         else
-            self.vulnerable = false
-            self.iframes = true
-            self:addStatus(Status.create(Status.ticks(20), function(self, entity, game)
-                entity.vulnerable = true
-                entity.iframes = false
-            end))
+            self:addStatus(
+                Status.create(Status.ticks(100),
+                function(self, entity, game)
+                    entity.vulnerable = true
+                    entity.iframes = false
+                end,
+                function()
+                    self.vulnerable = false
+                    self.iframes = true
+                end)
+            )
         end
     end
 end

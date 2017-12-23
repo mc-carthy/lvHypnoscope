@@ -14,8 +14,10 @@ local tick = function(self, owner, game)
     end
 end
 
-status.create = function(duration, onDone)
+status.create = function(duration, onDone, onApply)
     local inst = {}
+
+    if onApply then onApply() end
 
     inst.time = 0
     inst.duration = duration
