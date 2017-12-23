@@ -38,13 +38,15 @@ local draw = function(self, view, tilesheet)
     end
 end
 
-tilemap.create = function(floorPlan, background)
+tilemap.create = function(floorPlan, background, playerStartLeft, playerStartRight)
     local inst = {}
 
     inst.background = background
     inst.tilesWide = 50
     inst.tilesHigh = 22
     inst.lastGotTile = 0
+    inst.playerStartLeft = playerStartLeft
+    inst.playerStartRight = playerStartRight
 
     local whitespace = "%s"
     local nothing = ""

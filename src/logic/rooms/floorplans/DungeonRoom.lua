@@ -26,4 +26,4 @@ local dungeonRoomFloorPlan = [[
     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ]]
 
-return Tilemap.create(dungeonRoomFloorPlan)
+return Tilemap.create(dungeonRoomFloorPlan, nil, { x = 5, y = 0, z = 90 }, { x = 380, y = 0, z = 90 })

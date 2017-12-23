@@ -20,7 +20,7 @@ vector2.normalise = function(from, to)
     }
 end
 
-local theta = math.rad(45)
+local theta = math.rad(90)
 
 vector2.worldToScreen = function(vector3)
     return {

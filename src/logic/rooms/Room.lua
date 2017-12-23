@@ -2,6 +2,7 @@ local TileSheet = require("src.graphics.TileSheet")
 local V = require("src.math.Vector2")
 
 local room = {}
+local roomChangeThresholdDistance = 2
 
 local walkable = function(self, x, z)
     local screenPos = V.worldToScreen({ x = x, y = 0, z = z })
@@ -27,11 +28,11 @@ local update = function(self, game, map)
         end
     end
 
-    if game.player.position.drawX > self.roomWidth - self.tilesheet.tileSize then
+    if game.player.position.drawX > self.roomWidth - roomChangeThresholdDistance then
         map:nextRoom(game)
     end
 
-    if game.player.position.drawX < self.tilesheet.tileSize then
+    if game.player.position.drawX < roomChangeThresholdDistance then
         map:previousRoom(game)
     end
 end
@@ -50,6 +51,14 @@ local addEntity = function(self, entity)
     table.insert(self.entities, entity)
 end
 
+local getEntrance = function(self)
+    return self.tilemap.playerStartLeft
+end
+
+local getExit = function(self)
+    return self.tilemap.playerStartRight
+end
+
 room.create = function (tileMap, entities)
     local inst = {}
 
@@ -58,10 +67,6 @@ room.create = function (tileMap, entities)
 
     inst.roomWidth = 50 * inst.tilesheet.tileSize
     inst.roomHeight = 22 * inst.tilesheet.tileSize
-    inst.entranceX = -90
-    inst.entranceZ = 150
-    inst.exitX = 275
-    inst.exitZ = 150
 
     inst.colour = {
         math.random(255),
@@ -73,6 +78,8 @@ room.create = function (tileMap, entities)
 
     inst.walkable = walkable
     inst.addEntity = addEntity
+    inst.getEntrance = getEntrance
+    inst.getExit = getExit
     inst.update = update
     inst.draw = draw
 
