@@ -29,4 +29,4 @@ local bridgeFloorPlan = [[
     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ]]
 
-return Tilemap.create(bridgeFloorPlan, background, { x = 5, y = 0, z = 90 }, { x = 380, y = 0, z = 90 })
+return Tilemap.create(bridgeFloorPlan, 50, background, { x = 5, y = 0, z = 90 }, { x = 380, y = 0, z = 90 })

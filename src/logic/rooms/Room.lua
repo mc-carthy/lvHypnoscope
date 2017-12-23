@@ -65,8 +65,8 @@ room.create = function (tileMap, entities)
     inst.tilesheet = TileSheet.create("assets/sprites/tiles/dungeonPalette.png", 8)
     inst.tilemap = tileMap
 
-    inst.roomWidth = 50 * inst.tilesheet.tileSize
-    inst.roomHeight = 22 * inst.tilesheet.tileSize
+    inst.roomWidth = inst.tilemap.tilesWide * inst.tilesheet.tileSize
+    -- inst.roomHeight = 22 * inst.tilesheet.tileSize
 
     inst.colour = {
         math.random(255),
