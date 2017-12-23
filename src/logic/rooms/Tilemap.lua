@@ -12,14 +12,14 @@ local _walkable = function(char)
     return (char == "," or char == "." or char == "~")
 end
 
-local getWalkablePositions = function(self, tileSize)
+local getWalkablePositions = function(self, tileSize, xStart, xEnd)
     local walkablePositions = {}
 
     for i = 1, #self.floorPlan do
         local char = self.floorPlan:sub(i, i)
+        local x = (i - 1) % self.tilesWide * tileSize
 
-        if _walkable(char) then
-            local x = (i - 1) % self.tilesWide * tileSize
+        if _walkable(char) and x > xStart and x < xEnd then
             local y = math.floor((i - 1) / self.tilesWide) * tileSize
             table.insert(walkablePositions, { x, y })
         end

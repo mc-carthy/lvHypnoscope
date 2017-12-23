@@ -1,4 +1,3 @@
-local TileSheet = require("src.graphics.TileSheet")
 local V = require("src.math.Vector2")
 
 local room = {}
@@ -57,10 +56,10 @@ local getExit = function(self)
     return self.tilemap.playerStartRight
 end
 
-room.create = function (tileMap, entities)
+room.create = function (tileMap, tilesheet, entities)
     local inst = {}
 
-    inst.tilesheet = TileSheet.create("assets/sprites/tiles/dungeonPalette.png", 8)
+    inst.tilesheet = tilesheet
     inst.tilemap = tileMap
 
     inst.roomWidth = inst.tilemap.tilesWide * inst.tilesheet.tileSize

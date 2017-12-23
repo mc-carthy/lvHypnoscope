@@ -1,4 +1,5 @@
 local Room = require("src.logic.rooms.Room")
+local Tilesheet = require("src.graphics.Tilesheet")
 local Slime = require("src.mobs.Slime")
 local MagicPotion = require("src.pickups.MagicPotion")
 local Position = require("src.logic.Position")
@@ -26,7 +27,9 @@ end
 local _createRoom = function()
     local entities = {}
     local tilemap = Random.pick(tilemaps)
-    local availablePositions = tilemap:getWalkablePositions(8)
+    local tilesheet = Tilesheet.create("assets/sprites/tiles/dungeonPalette.png", 8)
+    -- TODO: Remove hardcoded x values
+    local availablePositions = tilemap:getWalkablePositions(tilesheet.tileSize, 150, 300)
 
     for i = 1, 5 do
         local pos = Random.pick(availablePositions)
@@ -37,7 +40,7 @@ local _createRoom = function()
         table.insert(entities, MagicPotion.create(Position.create(150 + i * 15, 0, 125)))
     end
 
-    return Room.create(tilemap, entities)
+    return Room.create(tilemap, tilesheet, entities)
 end
 
 local nextRoom = function(self, game)
