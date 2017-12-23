@@ -1,6 +1,7 @@
 local Entity = require("src.logic.Entity")
 local Sprite = require("src.graphics.Sprite")
 local Status = require("src.logic.Status")
+local Knockback = require("src.logic.statuses.Knockback")
 
 local punch = {}
 
@@ -10,6 +11,7 @@ local punchSfx = love.audio.newSource("assets/sounds/punch.wav", "static")
 local collision = function(self, other, game)
     if game.player ~= other then
         other:takeDamage(1)
+        other:addStatus(Knockback.create(50, other, self.position, 16))
     end
 end
 
