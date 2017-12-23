@@ -1,5 +1,5 @@
 local Rectangle = require("src.math.Rectangle")
-local Timer = require("src.logic.Timer")
+local Status = require("src.logic.Status")
 
 local entity = {}
 
@@ -17,7 +17,9 @@ local update = function(self, game)
     else
         self.visible = true
     end
-    if self.timer then self.timer:tick(self, game) end
+    for _, status in ipairs(self.statuses) do
+        status:tick(self, game)
+    end
     if self.movement then self.movement.update(self, game) end
     if self.sprite.update then self.sprite:update(game) end
     self.boundingBox:update(self.position.x, self.position.z)
@@ -40,12 +42,16 @@ local done = function (self)
   self.finished = true
 end
 
-local addTimer = function(self, timer)
-    self.timer = timer
+local addStatus = function(self, status)
+    table.insert(self.statuses, status)
 end
 
-local removeTimer = function(self)
-    self.timer = nil
+local removeStatus = function(self, statusToRemove)
+    for i, status in ipairs(self.statuses) do
+        if status == statusToRemove then
+            table.remove(self.statuses, i)
+        end
+    end
 end
 
 local takeDamage = function(self, damage)
@@ -56,7 +62,7 @@ local takeDamage = function(self, damage)
         else
             self.vulnerable = false
             self.iframes = true
-            self:addTimer(Timer.create(Timer.ticks(20), function(self, entity, game)
+            self:addStatus(Status.create(Status.ticks(20), function(self, entity, game)
                 entity.vulnerable = true
                 entity.iframes = false
             end))
@@ -67,6 +73,7 @@ end
 function entity.create(sprite, position, speed, movement, collision)
     local inst = {}
 
+    inst.statuses  = {}
     inst.finished = false
     inst.sprite = sprite
     inst.position = position
@@ -92,8 +99,8 @@ function entity.create(sprite, position, speed, movement, collision)
     inst.toPosition = toPosition
     inst.collisionCheck = collisionCheck
     inst.takeDamage = takeDamage
-    inst.addTimer = addTimer
-    inst.removeTimer = removeTimer
+    inst.addStatus = addStatus
+    inst.removeStatus = removeStatus
 
     return inst
 end

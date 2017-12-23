@@ -1,6 +1,6 @@
 local Entity = require("src.logic.Entity")
 local Sprite = require("src.graphics.Sprite")
-local Timer = require("src.logic.Timer")
+local Status = require("src.logic.Status")
 
 local punch = {}
 
@@ -17,11 +17,11 @@ punch.create = function(pos)
     local punch = Entity.create(punchSprite, pos, 0, nil, collision)
     love.audio.play(punchSfx)
 
-    local t = Timer.create(Timer.ticks(6), function(t, ent, game)
+    local t = Status.create(Status.ticks(6), function(t, ent, game)
         ent:done()
     end)
 
-    punch:addTimer(t)
+    punch:addStatus(t)
 
     return punch
 end
