@@ -3,6 +3,7 @@ local Slime = require("src.mobs.Slime")
 local MagicPotion = require("src.pickups.MagicPotion")
 local Position = require("src.logic.Position")
 local DungeonRoom = require("src.logic.rooms.floorplans.DungeonRoom")
+local Bridge = require("src.logic.rooms.floorplans.Bridge")
 
 local map = {}
 
@@ -32,7 +33,7 @@ local _createRoom = function()
         table.insert(entities, MagicPotion.create(Position.create(150 + i * 15, 0, 125)))
     end
 
-    return Room.create(DungeonRoom, entities)
+    return Room.create(Bridge, entities)
 end
 
 local nextRoom = function(self, game)
