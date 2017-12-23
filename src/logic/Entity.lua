@@ -1,5 +1,6 @@
 local Rectangle = require("src.math.Rectangle")
 local Status = require("src.logic.Status")
+local Iframes = require("src.logic.statuses.Iframes")
 
 local entity = {}
 
@@ -60,17 +61,7 @@ local takeDamage = function(self, damage)
         if self.hp <= 0 then
             self:done()
         else
-            self:addStatus(
-                Status.create(Status.ticks(100),
-                function(self, entity, game)
-                    entity.vulnerable = true
-                    entity.iframes = false
-                end,
-                function()
-                    self.vulnerable = false
-                    self.iframes = true
-                end)
-            )
+            self:addStatus(Iframes.create(100, self))
         end
     end
 end
