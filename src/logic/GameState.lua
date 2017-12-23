@@ -20,10 +20,16 @@ local update = function(self, dt)
     self.updates = self.updates + 1
     self.dt = dt
     self.map:update(self)
+
+    for i, entity in ipairs(self.entities) do
+        if entity.finished then
+            table.remove(self.entities, i)
+        end
+    end
+
     for _, entity in ipairs(self.entities) do
         entity:update(self)
     end
-    self.player:update(self)
     self.view:update(self)
 end
 
@@ -35,6 +41,7 @@ local draw = function(self)
     end
     if DEBUG then
         love.graphics.print(self.debugString)
+        love.graphics.print(self.player.hp, 10, 10)
     end
 end
 
@@ -42,7 +49,7 @@ function gameState.create(player, view)
     local inst = {}
 
     inst.updates = 0
-    inst.entities = {}
+    inst.entities = { player }
     inst.player = player
     inst.map = Map.create()
     inst.view = view

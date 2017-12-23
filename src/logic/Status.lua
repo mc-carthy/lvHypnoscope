@@ -10,7 +10,7 @@ local tick = function(self, owner, game)
 
     if self.time >= self.duration then
         self:onDone(owner, game)
-        owner:removeStatus()
+        owner:removeStatus(self)
     end
 end
 
