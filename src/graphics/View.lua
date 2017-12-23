@@ -11,9 +11,9 @@ local viewOffset = 0
 local update = function(self, game)
     local currentRoom = game.map:currentRoom()
     local maxX = (currentRoom.roomWidth - self.gameWidth) + viewOffset
-    local maxY = (currentRoom.roomHeight - self.gameHeight) + viewOffset
+    -- local maxY = (currentRoom.roomHeight - self.gameHeight) + viewOffset
     self.x = clamp(game.player.position.drawX - self.gameWidth / 2, -viewOffset, maxX)
-    self.y = clamp(game.player.position.drawY - self.gameHeight / 2, -viewOffset, maxY)
+    -- self.y = clamp(game.player.position.drawY - self.gameHeight / 2, -viewOffset, maxY)
 end
 
 local scale = function(self)
