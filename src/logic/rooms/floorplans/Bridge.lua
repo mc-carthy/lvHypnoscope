@@ -1,5 +1,8 @@
 local Tilemap = require("src.logic.rooms.Tilemap")
 
+local background = love.graphics.newImage("assets/backgrounds/test_background.png")
+background:setFilter("nearest", "nearest")
+
 local bridgeFloorPlan = [[
     ##################################################
     ##################################################
@@ -8,7 +11,7 @@ local bridgeFloorPlan = [[
     ##################################################
     ##################################################
     ##################################################
-    ##################################################
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ..................................................
     ..................................................
     ..................................................
@@ -25,4 +28,4 @@ local bridgeFloorPlan = [[
     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ]]
 
-return Tilemap.create(bridgeFloorPlan)
+return Tilemap.create(bridgeFloorPlan, background)

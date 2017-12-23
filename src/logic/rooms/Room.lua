@@ -8,7 +8,7 @@ local walkable = function(self, x, z)
     if screenPos.x < 0 or screenPos.y < 0 then return false end
 
     local tileChar = self.tilemap:getTile(screenPos.x, screenPos.y, self.tilesheet.tileSize)
-    return (tileChar == "," or tileChar == ".")
+    return (tileChar == "," or tileChar == "." or tileChar == "~")
 end
 
 local update = function(self, game, map)

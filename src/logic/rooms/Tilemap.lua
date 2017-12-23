@@ -9,6 +9,12 @@ local getTile = function(self, x, y, tileSize)
 end
 
 local draw = function(self, view, tilesheet)
+    if self.background then
+        view:inBackgroundContext(function()
+            love.graphics.draw(self.background, 0, 0)
+        end)
+    end
+
     for i = 1, #self.floorPlan do
         local char = self.floorPlan:sub(i,i)
         local x = (i - 1) % self.tilesWide * tilesheet.tileSize
@@ -22,6 +28,7 @@ local draw = function(self, view, tilesheet)
         if char == "." then tilesheet:drawTile(view, x, y, 1, 2) end
         if char == "," then tilesheet:drawTile(view, x, y, 2, 2) end
         if char == "s" then tilesheet:drawTile(view, x, y, 4, 2) end
+        if char == "~" then tilesheet:drawTile(view, x, y, 2, 3) end
 
         if DEBUG and i == self.lastGotTile then
             view:inContext(function()
@@ -31,14 +38,13 @@ local draw = function(self, view, tilesheet)
     end
 end
 
-tilemap.create = function(floorPlan)
+tilemap.create = function(floorPlan, background)
     local inst = {}
 
+    inst.background = background
     inst.tilesWide = 50
     inst.tilesHigh = 22
     inst.lastGotTile = 0
-
-
 
     local whitespace = "%s"
     local nothing = ""
