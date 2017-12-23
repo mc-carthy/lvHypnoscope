@@ -2,12 +2,14 @@ local View = require("src.graphics.View")
 
 local sprite = {}
 
-local draw = function(self, view, x, y)
+local draw = function(self, view, x, y, flipped)
     view:inContext(function()
         local xOffset = self.size / 2
         local yOffset = self.size / 2
+        local xScale = 1
+        if flipped then xScale = -1 end
 
-        love.graphics.draw(self.image, x - xOffset, y - yOffset, 0)
+        love.graphics.draw(self.image, x, y, 0, xScale, 1, xOffset, yOffset)
 
         if DEBUG then
             love.graphics.rectangle("fill", x, y, 1, 1)

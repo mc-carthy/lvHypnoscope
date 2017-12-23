@@ -25,7 +25,7 @@ end
 
 local draw = function(self, view)
     if self.visible then
-        self.sprite:draw(view, self.position.drawX, self.position.drawY)
+        self.sprite:draw(view, self.position.drawX, self.position.drawY, self.position.left)
     end
     if DEBUG then
         view:inContext(function()

@@ -21,7 +21,15 @@ local setPosition = function(self, x, y, z)
     _updateDrawPosition(self)
 end
 
-position.create = function(x, y, z)
+local faceLeft = function(self)
+    self.left = true
+end
+
+local faceRight = function(self)
+    self.left = false
+end
+
+position.create = function(x, y, z, left)
     local inst = {}
 
     inst.x = x
@@ -29,10 +37,13 @@ position.create = function(x, y, z)
     inst.z = z
     inst.drawX = nil
     inst.drawY = nil
+    inst.left = left
     _updateDrawPosition(inst)
 
     inst.toString = toString
     inst.setPosition = setPosition
+    inst.faceLeft = faceLeft
+    inst.faceRight = faceRight
 
     return inst
 end

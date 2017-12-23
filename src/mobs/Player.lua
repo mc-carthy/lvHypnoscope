@@ -13,8 +13,10 @@ local playerSprite = SpriteSheet.create("assets/sprites/adventurer.png", 16, Ani
 local action1 = function(self, game)
     local currentRoom = game.map:currentRoom()
     local pos = self.position
-    -- TODO: Replace hard-coded value below, half sprite width
-    currentRoom:addEntity(Punch.create(Position.create(pos.x + 8, pos.y, pos.z)))
+    -- TODO: Replace hard-coded values below
+    local punchOffset = 10
+    if pos.left then punchOffset = -12 end
+    currentRoom:addEntity(Punch.create(Position.create(pos.x + punchOffset, pos.y, pos.z, pos.left)))
     self.interruptMovement = true
     local t = Timer.create(Timer.ticks(5), function(_, owner, game)
         owner.interruptMovement = false
