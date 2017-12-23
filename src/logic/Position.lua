@@ -14,7 +14,7 @@ local _updateDrawPosition = function(self)
     self.drawY = drawPosition.y
 end
 
-local update = function(self, x, y, z)
+local setPosition = function(self, x, y, z)
     self.x = x
     self.y = y
     self.z = z
@@ -32,7 +32,7 @@ position.create = function(x, y, z)
     _updateDrawPosition(inst)
 
     inst.toString = toString
-    inst.update = update
+    inst.setPosition = setPosition
 
     return inst
 end

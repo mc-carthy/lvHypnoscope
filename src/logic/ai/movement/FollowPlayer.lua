@@ -21,7 +21,7 @@ followPlayer.update = function(entity, game)
         local newZ = entity.position.z + dz
 
         if room:walkable(newX, newZ) then
-            entity.position:update(newX, entity.position.y, newZ)
+            entity.position:setPosition(newX, entity.position.y, newZ)
         end
     end
 end

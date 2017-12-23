@@ -2,8 +2,8 @@ local spriteSheet = {}
 
 local draw = function(self, view, x, y)
     view:inContext(function()
-        local xOffset = self.image:getWidth() / 2
-        local yOffset = self.image:getHeight() / 2
+        local xOffset = self.size / 2
+        local yOffset = self.size / 2
 
         love.graphics.draw(self.image, self.sprites[self.animation:frame()], x - xOffset, y - yOffset)
 
@@ -31,6 +31,7 @@ spriteSheet.create = function(imagePath, spriteSize, animation)
     inst.sprites = {}
     inst.currentSprite = 2
     inst.animation = animation
+    inst.size = spriteSize
 
     local spritesWide = inst.image:getWidth() / spriteSize
     local spritesHigh = inst.image:getHeight() / spriteSize

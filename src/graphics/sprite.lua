@@ -4,8 +4,8 @@ local sprite = {}
 
 local draw = function(self, view, x, y)
     view:inContext(function()
-        local xOffset = self.image:getWidth() / 2
-        local yOffset = self.image:getHeight() / 2
+        local xOffset = self.size / 2
+        local yOffset = self.size / 2
 
         love.graphics.draw(self.image, x - xOffset, y - yOffset, 0)
 
@@ -21,6 +21,7 @@ function sprite.create(imagePath)
     inst.image = love.graphics.newImage(imagePath)
     inst.image:setFilter("nearest", "nearest")
     inst.draw = draw
+    inst.size = inst.image:getWidth()
 
     return inst
 end

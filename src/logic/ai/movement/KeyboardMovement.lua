@@ -26,7 +26,7 @@ function keyboardMovement.update(entity, game)
     newZ = entity.position.z + dz * game.dt
 
     if currentRoom:walkable(newX, newZ) then
-        entity.position:update(newX, entity.position.y, newZ)
+        entity.position:setPosition(newX, entity.position.y, newZ)
     end
 
     game.debugString = math.floor(entity.position.x) .. ", " .. math.floor(entity.position.y) .. ", " .. math.floor(entity.position.z)

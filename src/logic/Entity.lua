@@ -82,8 +82,8 @@ function entity.create(sprite, position, speed, movement, collision)
     inst.boundingBox = Rectangle.create(
         inst.position.x,
         inst.position.z,
-        sprite.image:getWidth(),
-        sprite.image:getHeight()
+        sprite.size,
+        sprite.size
     )
 
     inst.update = update
