@@ -5,8 +5,8 @@ local bounce = {}
 local bounceHeight = function(entity, game)
     local player = game.player
 
-    local entityPosition = entity:toPosition()
-    local playerPosition = game.player:toPosition()
+    local entityPosition = entity.position
+    local playerPosition = game.player.position
     local dst = V.distance(entityPosition, playerPosition)
 
     if dst < 50 then
@@ -21,15 +21,19 @@ function bounce.update(entity, game)
         entity.dir = 1
     end
 
-    if entity.y < -bounceHeight(entity, game) then
+    local pos = entity.position
+
+    if pos.y < -bounceHeight(entity, game) then
         -- entity.y = bounceHeight(entity, game)
         entity.dir = -1
-    elseif entity.y > 0 then
+    elseif pos.y > 0 then
         -- entity.y = 0
         entity.dir = 1
     end
 
-    entity.y = entity.y - (entity.speed * 2 * entity.dir * game.dt)
+    local newY = pos.y - (entity.speed * 2 * entity.dir * game.dt)
+
+    entity.position:update(pos.x, newY, pos.z)
 end
 
 return bounce

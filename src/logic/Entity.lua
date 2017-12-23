@@ -1,6 +1,7 @@
 local Vector2 = require("src.math.Vector2")
 local Rectangle = require("src.math.Rectangle")
 local Timer = require("src.logic.Timer")
+local Position = require("src.logic.Position")
 
 local entity = {}
 
@@ -12,18 +13,6 @@ local collisionCheck = function(self, other, game)
     end
 end
 
-local toPosition = function(self)
-    return {
-        x = self.x,
-        y = self.y,
-        z = self.z
-    }
-end
-
-local _positionString = function(self)
-    return math.floor(self.x) .. ", " .. math.floor(self.y) .. ", " .. math.floor(self.z)
-end
-
 local update = function(self, game)
     if self.iframes and game:modulate() then
         self.visible = false
@@ -33,19 +22,16 @@ local update = function(self, game)
     if self.timer then self.timer:tick(self, game) end
     if self.movement then self.movement.update(self, game) end
     if self.sprite.update then self.sprite:update(game) end
-    self.boundingBox:update(self.x, self.z)
-    local screenPos = Vector2.worldToScreen(toPosition(self))
-    self.drawX = screenPos.x
-    self.drawY = screenPos.y
+    self.boundingBox:update(self.position.x, self.position.z)
 end
 
 local draw = function(self, view)
     if self.visible then
-        self.sprite:draw(view, self.drawX, self.drawY)
+        self.sprite:draw(view, self.position.drawX, self.position.drawY)
     end
     if DEBUG then
         view:inContext(function()
-            love.graphics.print(_positionString(self), self.drawX, self.drawY)
+            love.graphics.print(self.position:toString(), self.position.drawX, self.position.drawY)
             if self.debugColour then love.graphics.setColor(self.debugColour) end
             love.graphics.polygon("line", self.boundingBox:getPoints())
         end)
@@ -85,13 +71,9 @@ function entity.create(sprite, x, y, z, speed, movement, collision)
 
     inst.finished = false
     inst.sprite = sprite
-    inst.x = x
-    inst.y = y
-    inst.z = z
+    inst.position = Position.create(x, y, z)
     inst.vulnerable = true
     inst.hp = 5
-    inst.drawX = x
-    inst.drawY = y - z / 2
     inst.speed = speed
     inst.movement = movement
     inst.collision = collision
@@ -100,8 +82,8 @@ function entity.create(sprite, x, y, z, speed, movement, collision)
     inst.visible = true
 
     inst.boundingBox = Rectangle.create(
-        x,
-        z,
+        inst.position.x,
+        inst.position.z,
         sprite.image:getWidth(),
         sprite.image:getHeight()
     )

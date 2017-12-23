@@ -3,8 +3,8 @@ local V = require("src.math.Vector2")
 local followPlayer = {}
 
 followPlayer.update = function(entity, game)
-    local playerPos = game.player:toPosition()
-    local entityPos = entity:toPosition()
+    local playerPos = game.player.position
+    local entityPos = entity.position
     local dx = 0
     local dz = 0
     local room = game.map:currentRoom()
@@ -17,12 +17,11 @@ followPlayer.update = function(entity, game)
         dx = unitV.x * entity.speed * game.dt
         dz = unitV.z * entity.speed * game.dt
 
-        local newX = entity.x + dx
-        local newZ = entity.z + dz
+        local newX = entity.position.x + dx
+        local newZ = entity.position.z + dz
 
         if room:walkable(newX, newZ) then
-            entity.x = newX
-            entity.z = newZ
+            entity.position:update(newX, entity.position.y, newZ)
         end
     end
 end

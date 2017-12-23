@@ -40,8 +40,9 @@ local nextRoom = function(self, game)
 
     local newRoom = self.rooms[self.roomIndex + 1]
 
-    game.player.x = newRoom.entranceX
-    game.player.z = newRoom.entranceZ
+    game.player.position:update(
+        newRoom.entranceX, game.player.position.y, newRoom.entranceZ
+    )
 
     self.roomIndex = self.roomIndex + 1
 end
@@ -50,8 +51,9 @@ local previousRoom = function(self, game)
     if self.roomIndex > 1 then
         self.roomIndex = self.roomIndex - 1
         local newRoom = currentRoom(self)
-        game.player.x = newRoom.exitX
-        game.player.z = newRoom.exitZ
+        game.player.position:update(
+            newRoom.exitX, game.player.position.y, newRoom.exitZ
+        )
     end
 end
 

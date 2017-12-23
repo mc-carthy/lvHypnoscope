@@ -12,7 +12,7 @@ local playerSprite = SpriteSheet.create("assets/sprites/adventurer.png", 16, Ani
 local action1 = function(self, game)
     local currentRoom = game.map:currentRoom()
     -- TODO: Replace hard-coded value below, half sprite width
-    currentRoom:addEntity(Punch.create(self.x + 8, self.y, self.z))
+    currentRoom:addEntity(Punch.create(self.position.x + 8, self.position.y, self.position.z))
     self.interruptMovement = true
     local t = Timer.create(Timer.ticks(5), function(_, owner, game)
         owner.interruptMovement = false
