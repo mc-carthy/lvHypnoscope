@@ -33,7 +33,11 @@ local _createRoom = function()
         table.insert(entities, MagicPotion.create(Position.create(150 + i * 15, 0, 125)))
     end
 
-    return Room.create(Bridge, entities)
+    if love.math.random() > 0.5 then
+        return Room.create(Bridge, entities)
+    else
+        return Room.create(DungeonRoom, entities)
+    end
 end
 
 local nextRoom = function(self, game)
