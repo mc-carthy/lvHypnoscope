@@ -2,10 +2,13 @@ local Room = require("src.logic.rooms.Room")
 local Slime = require("src.mobs.Slime")
 local MagicPotion = require("src.pickups.MagicPotion")
 local Position = require("src.logic.Position")
+local Random = require("src.math.Random")
 local DungeonRoom = require("src.logic.rooms.floorplans.DungeonRoom")
 local Bridge = require("src.logic.rooms.floorplans.Bridge")
 
 local map = {}
+
+local tilemaps = { DungeonRoom, Bridge }
 
 local currentRoom = function(self)
     return self.rooms[self.roomIndex]
@@ -22,22 +25,19 @@ end
 
 local _createRoom = function()
     local entities = {}
+    local tilemap = Random.pick(tilemaps)
+    local availablePositions = tilemap:getWalkablePositions(8)
 
     for i = 1, 5 do
-        local xPos = math.random(100) + 100
-        local zPos = math.random(50) + 100
-        entities[i] = Slime.create(Position.create(xPos, 0, zPos))
+        local pos = Random.pick(availablePositions)
+        entities[i] = Slime.create(Position.create(pos[1], 0, pos[2]))
     end
 
     for i = 1, 5 do
         table.insert(entities, MagicPotion.create(Position.create(150 + i * 15, 0, 125)))
     end
 
-    if love.math.random() > 0.5 then
-        return Room.create(Bridge, entities)
-    else
-        return Room.create(DungeonRoom, entities)
-    end
+    return Room.create(tilemap, entities)
 end
 
 local nextRoom = function(self, game)

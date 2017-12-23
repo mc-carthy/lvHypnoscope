@@ -8,6 +8,26 @@ local getTile = function(self, x, y, tileSize)
     return self.floorPlan:sub(i,i)
 end
 
+local _walkable = function(char)
+    return (char == "," or char == "." or char == "~")
+end
+
+local getWalkablePositions = function(self, tileSize)
+    local walkablePositions = {}
+
+    for i = 1, #self.floorPlan do
+        local char = self.floorPlan:sub(i, i)
+
+        if _walkable(char) then
+            local x = (i - 1) % self.tilesWide * tileSize
+            local y = math.floor((i - 1) / self.tilesWide) * tileSize
+            table.insert(walkablePositions, { x, y })
+        end
+    end
+
+    return walkablePositions
+end
+
 local draw = function(self, view, tilesheet)
     if self.background then
         view:inBackgroundContext(function()
@@ -53,6 +73,7 @@ tilemap.create = function(floorPlan, tilesWide, background, playerStartLeft, pla
     inst.floorPlan = floorPlan:gsub(whitespace, nothing)
 
     inst.getTile = getTile
+    inst.getWalkablePositions = getWalkablePositions
     inst.draw = draw
 
     return inst

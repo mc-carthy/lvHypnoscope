@@ -40,8 +40,6 @@ end
 local draw = function(self, view)
     self.tilemap:draw(view, self.tilesheet)
 
-
-
     for _, entity in ipairs(self.entities) do
         entity:draw(view)
     end
