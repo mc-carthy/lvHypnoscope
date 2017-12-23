@@ -11,7 +11,7 @@ local punchSfx = love.audio.newSource("assets/sounds/punch.wav", "static")
 local collision = function(self, other, game)
     if game.player ~= other then
         other:takeDamage(1)
-        other:addStatus(Knockback.create(50, other, self.position, 16))
+        other:addStatus(Knockback.create(20, other, self.position, 8))
     end
 end
 

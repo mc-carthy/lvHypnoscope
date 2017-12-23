@@ -1,5 +1,4 @@
 local TileSheet = require("src.graphics.TileSheet")
-local Tilemap = require("src.logic.rooms.Tilemap")
 local V = require("src.math.Vector2")
 
 local room = {}
@@ -51,11 +50,11 @@ local addEntity = function(self, entity)
     table.insert(self.entities, entity)
 end
 
-room.create = function (entities)
+room.create = function (tileMap, entities)
     local inst = {}
 
     inst.tilesheet = TileSheet.create("assets/sprites/tiles/dungeonPalette.png", 8)
-    inst.tilemap = Tilemap.create()
+    inst.tilemap = tileMap
 
     inst.roomWidth = 50 * inst.tilesheet.tileSize
     inst.roomHeight = 22 * inst.tilesheet.tileSize

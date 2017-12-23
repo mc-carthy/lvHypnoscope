@@ -5,12 +5,12 @@ local getTile = function(self, x, y, tileSize)
 
     self.lastGotTile = i
 
-    return self.map:sub(i,i)
+    return self.floorPlan:sub(i,i)
 end
 
 local draw = function(self, view, tilesheet)
-    for i = 1, #self.map do
-        local char = self.map:sub(i,i)
+    for i = 1, #self.floorPlan do
+        local char = self.floorPlan:sub(i,i)
         local x = (i - 1) % self.tilesWide * tilesheet.tileSize
         local y = math.floor((i - 1) / self.tilesWide) * tilesheet.tileSize
 
@@ -31,41 +31,18 @@ local draw = function(self, view, tilesheet)
     end
 end
 
-tilemap.create = function()
+tilemap.create = function(floorPlan)
     local inst = {}
 
     inst.tilesWide = 50
     inst.tilesHigh = 22
     inst.lastGotTile = 0
 
-    local map = [[
-        ^^^^^^^^^^^^^^^^^^^^^^^XXXX^^^^^^^^^^^^^^^^^^^^^^^
-        xxxxxxxxxxxxxxxxxxxxxxxXXXXxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxXXXXxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxXXXXxxxxxxxxxxxxxxxxxxxxxxx
-        =======================XXXXxxxxxxxxxxxxxxxxxxxxxxx
-        .......................sXXXxxxxxxxxxxxxxxxxxxxxxxx
-        ........................sXXxxxxxxxxxxxxxxxxxxxxxxx
-        .........................sXxxxxxxxxxxxxxxxxxxxxxxx
-        ..........................s=======================
-        .............,....................................
-        ..................................................
-        ..................................................
-        ..................................................
-        ..................................................
-        ........................,.........................
-        ..................................................
-        vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    ]]
+
 
     local whitespace = "%s"
     local nothing = ""
-    inst.map = map:gsub(whitespace, nothing)
+    inst.floorPlan = floorPlan:gsub(whitespace, nothing)
 
     inst.getTile = getTile
     inst.draw = draw
