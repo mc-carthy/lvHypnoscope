@@ -26,15 +26,24 @@ end
 pause.create = function(view)
     local inst = {}
 
+    local confirmExitMenu = Menu.create(50, 50, {
+        Menu.createOption("No", function()
+            inst.menuStack:popMenu()
+        end),
+        Menu.createOption("Yes", function()
+            GameController.get():exit()
+        end)
+    })
+
     inst.view = view
     inst.menuStack = MenuStack.create()
     inst.menuStack:pushMenu(
-        Menu.create({
+        Menu.create(10, 10, {
             Menu.createOption("Continue", function()
                 GameController.get():popState()
             end),
             Menu.createOption("Exit Game", function()
-                GameController.get():exit()
+                inst.menuStack:pushMenu(confirmExitMenu)
             end)
         })
     )
