@@ -23,7 +23,7 @@ end
 
 local draw = function(self, view)
     self.rooms[self.roomIndex]:draw(view)
-    love.graphics.printf("Room " .. self.roomIndex, love.graphics.getWidth() / 2 - 50, 40, 100, "center")
+    -- love.graphics.printf("Room " .. self.roomIndex, love.graphics.getWidth() / 2 - 50, 40, 100, "center")
 end
 
 local _createRoom = function()
