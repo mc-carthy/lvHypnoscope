@@ -2,6 +2,10 @@ local View = require("src.graphics.View")
 
 local sprite = {}
 
+local getImage = function(self)
+    return self.image
+end
+
 local draw = function(self, view, x, y, flipped)
     view:inContext(function()
         local xOffset = self.size / 2
@@ -23,6 +27,7 @@ function sprite.create(imagePath)
     inst.image = love.graphics.newImage(imagePath)
     inst.image:setFilter("nearest", "nearest")
     inst.draw = draw
+    inst.getImage = getImage
     inst.size = inst.image:getWidth()
 
     return inst

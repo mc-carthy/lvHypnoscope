@@ -13,13 +13,16 @@ end
 local draw = function(self, view, game)
     view:inDisplayContext(function()
         local player = game:getPlayer()
-
         local pipWidth = 6
         local pipHeight = 4
         local xOffset = 4
         local yOffset = 2
-
         _drawBar(player.hp, pipWidth, pipHeight, xOffset, yOffset)
+
+        local item = game:getInventory():getItem()
+        local itemIconPositionX = 270 - 8 - 2
+        local itemIconPositionY = 1
+        love.graphics.draw(item.SPRITE:getImage(), itemIconPositionX, itemIconPositionY)
     end)
 end
 
