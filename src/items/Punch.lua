@@ -9,6 +9,8 @@ local punch = {}
 local punchSprite = Sprite.create("assets/sprites/punch.png")
 local punchSfx = love.audio.newSource("assets/sounds/punch.wav", "static")
 
+punch.SPRITE = punchSprite
+
 local collision = function(self, other, game)
     if game.player ~= other then
         other:takeDamage(1)

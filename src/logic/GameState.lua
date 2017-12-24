@@ -1,5 +1,6 @@
 local Map = require("src.logic.rooms.Map")
 local Inventory = require("src.logic.Inventory")
+local Display = require("src.graphics.Display")
 
 local gameState = {}
 
@@ -42,6 +43,9 @@ local draw = function(self)
     for _, entity in ipairs(self.entities) do
         entity:draw(self.view)
     end
+
+    self.display:draw(self.view, self)
+
     if DEBUG then
         love.graphics.print(self.debugString)
         love.graphics.print(self.player.hp, 10, 10)
@@ -62,6 +66,7 @@ function gameState.create(player, view)
     inst.updates = 0
     inst.entities = { player }
     inst.player = player
+    inst.display = Display.create()
     inst.inventory = Inventory.create()
     inst.map = Map.create()
     inst.view = view
