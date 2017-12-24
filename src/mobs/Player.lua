@@ -19,18 +19,27 @@ local _spawnEntity = function(self, entityToSpawn, game)
     currentRoom:addEntity(entityToSpawn.create(Position.create(pos.x + offset, pos.y, pos.z, pos.left)))
 end
 
+local _interruptMovement = function(self)
+    local t = Status.create(
+        Status.ticks(5),
+        function(_, owner, game)
+            owner.interruptMovement = false
+        end,
+        function()
+            self.interruptMovement = true
+        end
+    )
+    self:addStatus(t)
+end
+
 local action1 = function(self, game)
     _spawnEntity(self, Punch, game)
-    -- TODO: Use new status method
-    self.interruptMovement = true
-    local t = Status.create(Status.ticks(5), function(_, owner, game)
-        owner.interruptMovement = false
-    end)
-    self:addStatus(t)
+    _interruptMovement(self)
 end
 
 local action2 = function(self, game)
     _spawnEntity(self, Sword, game)
+    _interruptMovement(self)
 end
 
 player.create = function()
