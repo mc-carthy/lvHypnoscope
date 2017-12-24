@@ -1,3 +1,5 @@
+local GameController = require("src.logic.GameController")
+local PauseState = require("src.logic.PauseState")
 local Map = require("src.logic.rooms.Map")
 local Inventory = require("src.logic.Inventory")
 local Display = require("src.graphics.Display")
@@ -18,6 +20,9 @@ local keyPressed = function(self, key)
     end
     if key == "x" then
         self.player:action2(self)
+    end
+    if key == "q" then
+        GameController.get():pushState(self.pause)
     end
 end
 
@@ -63,6 +68,7 @@ end
 function gameState.create(player, view)
     local inst = {}
 
+    inst.pause = PauseState.create(view)
     inst.updates = 0
     inst.entities = { player }
     inst.player = player
