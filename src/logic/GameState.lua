@@ -21,7 +21,7 @@ local keyPressed = function(self, key)
     if key == "x" then
         self.player:action2(self)
     end
-    if key == "q" then
+    if key == "escape" then
         GameController.get():pushState(self.pause)
     end
 end

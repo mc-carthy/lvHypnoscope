@@ -29,16 +29,28 @@ local previous = function(self)
     end
 end
 
+local confirm = function(self)
+    local currentOption = self.options[self.selected]
+    currentOption["onSelect"]()
+end
+
 local draw = function(self, view)
     view:inDisplayContext(function()
         for i, option in ipairs(self.options) do
             if (i == self.selected) then
-                _drawSelectedOption(option, i)
+                _drawSelectedOption(option["text"], i)
             else
-                _drawOption(option, i)
+                _drawOption(option["text"], i)
             end
         end
     end)
+end
+
+menu.createOption = function(text, onSelect)
+    return {
+        text = text,
+        onSelect = onSelect
+    }
 end
 
 menu.create = function(options)
@@ -50,6 +62,7 @@ menu.create = function(options)
     inst.next = next
     inst.previous = previous
     inst.draw = draw
+    inst.confirm = confirm
 
     return inst
 end

@@ -15,8 +15,12 @@ local draw = function(self)
 end
 
 local keyPressed = function(self, key)
-    if key == "q" then
+    if key == "escape" then
         GameController.get():popState()
+    end
+
+    if key == "return" then
+        self.menu:confirm()
     end
 
     if key == "down" then
@@ -32,7 +36,14 @@ pause.create = function(view)
     local inst = {}
 
     inst.view = view
-    inst.menu = Menu.create({"one", "two", "three"})
+    inst.menu = Menu.create({
+        Menu.createOption("Continue", function()
+            GameController.get():popState()
+        end),
+        Menu.createOption("Exit Game", function()
+            love.event.quit()
+        end)
+    })
 
     inst.update = update
     inst.draw = draw

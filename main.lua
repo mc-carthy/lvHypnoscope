@@ -22,9 +22,6 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
-    if love.keyboard.isDown("escape") then
-        love.event.quit()
-    end
     controller:update(dt)
 end
 
