@@ -11,6 +11,8 @@ local sfx = love.audio.newSource("assets/sounds/sword.wav", "static")
 local speed = 0
 local movement = nil
 
+sword.SPRITE = sprite
+
 local collision = function(self, other, game)
     if game.player ~= other then
         other:takeDamage(5)

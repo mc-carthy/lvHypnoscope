@@ -2,6 +2,8 @@ local Room = require("src.logic.rooms.Room")
 local Tilesheet = require("src.graphics.Tilesheet")
 local Slime = require("src.mobs.Slime")
 local MagicPotion = require("src.pickups.MagicPotion")
+local Item = require("src.pickups.Item")
+local Sword = require("src.items.Sword")
 local Position = require("src.logic.Position")
 local Random = require("src.math.Random")
 local DungeonRoom = require("src.logic.rooms.floorplans.DungeonRoom")
@@ -39,6 +41,8 @@ local _createRoom = function()
     for i = 1, 5 do
         table.insert(entities, MagicPotion.create(Position.create(150 + i * 15, 0, 125)))
     end
+
+    table.insert(entities, Item.create(Position.create(140, 0, 80), Sword))
 
     return Room.create(tilemap, tilesheet, entities)
 end

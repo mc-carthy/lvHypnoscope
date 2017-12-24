@@ -33,7 +33,10 @@ local _interruptMovement = function(self)
 end
 
 local action1 = function(self, game)
-    _spawnEntity(self, Punch, game)
+    local inventory = game:getInventory()
+    local itemToSpawn = inventory:getItem()
+
+    _spawnEntity(self, itemToSpawn, game)
     _interruptMovement(self)
 end
 
