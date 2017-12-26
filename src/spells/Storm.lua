@@ -4,7 +4,9 @@ local cast = function(self, game)
     local room = game.map:currentRoom()
 
     for _, mob in ipairs(room:getEntities()) do
-        mob:takeDamage(self.spellDamage)
+        if mob.is == "enemy" then
+            mob:takeDamage(self.spellDamage)
+        end
     end
 end
 

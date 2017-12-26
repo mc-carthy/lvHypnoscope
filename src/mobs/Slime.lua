@@ -14,7 +14,10 @@ local collision = function(self, other, game)
 end
 
 slime.create = function(pos)
-    return Entity.create(slimeSprite, pos, speed, BounceAfterPlayer, collision)
+    local slime = Entity.create(slimeSprite, pos, speed, BounceAfterPlayer, collision)
+    slime.is = "enemy"
+
+    return slime
 end
 
 return slime
