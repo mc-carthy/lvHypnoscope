@@ -8,6 +8,14 @@ local addPotion = function(self)
     self.potionCount = self.potionCount + 1
 end
 
+local getPotionCount = function(self)
+    return self.potionCount
+end
+
+local setPotionCount = function(self, n)
+    self.potionCount = n
+end
+
 local getItem = function(self)
     if self.currentItem == nil then
         return defaultItem
@@ -29,6 +37,8 @@ inventory.create = function()
     inst.getItem = getItem
     inst.setItem = setItem
     inst.addPotion = addPotion
+    inst.getPotionCount = getPotionCount
+    inst.setPotionCount = setPotionCount
 
     return inst
 end
