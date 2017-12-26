@@ -1,4 +1,5 @@
 local Stun = require("src.logic.statuses.Stun")
+local Lightning = require("src.mobs.fx.Lightning")
 
 local storm = {}
 
@@ -9,6 +10,7 @@ local cast = function(self, game)
     local room = game.map:currentRoom()
     local inventory = game:getInventory()
     local potionCount = inventory:getPotionCount()
+    local stunTime = 50
 
     if potionCount >= self.spellCost then
         sfx:play()
@@ -16,7 +18,8 @@ local cast = function(self, game)
         for _, mob in ipairs(room:getEntities()) do
             if mob.is == "enemy" then
                 mob:takeDamage(self.spellDamage)
-                mob:addStatus(Stun.create(10, mob))
+                mob:addStatus(Stun.create(stunTime, mob))
+                room:addEntity(Lightning.create(mob:getPosition(), stunTime))
             end
         end
     else
