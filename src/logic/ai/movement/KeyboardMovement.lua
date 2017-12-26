@@ -4,8 +4,6 @@ local Animation = require("src.graphics.Animation")
 local keyboardMovement = {}
 
 function keyboardMovement.update(entity, game)
-    if entity.interruptMovement then return end
-
     local dx = 0
     local dz = 0
     local currentRoom = game.map:currentRoom()
