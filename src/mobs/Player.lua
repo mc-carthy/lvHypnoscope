@@ -3,6 +3,7 @@ local SpriteSheet = require("src.graphics.SpriteSheet")
 local KeyboardMovement = require("src.logic.ai.movement.KeyboardMovement")
 local Punch = require("src.items.Punch")
 local Sword = require("src.items.Sword")
+local Storm = require("src.spells.Storm")
 local Status = require("src.logic.Status")
 local Animation = require("src.graphics.Animation")
 local Position = require("src.logic.Position")
@@ -40,9 +41,10 @@ local action1 = function(self, game)
     _interruptMovement(self)
 end
 
+local stormSpell = Storm.create()
+
 local action2 = function(self, game)
-    _spawnEntity(self, Sword, game)
-    _interruptMovement(self)
+    stormSpell:cast(game)
 end
 
 player.create = function()

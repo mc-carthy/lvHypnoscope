@@ -48,6 +48,10 @@ local addEntity = function(self, entity)
     table.insert(self.entities, entity)
 end
 
+local getEntities = function(self)
+    return self.entities
+end
+
 local getEntrance = function(self)
     return self.tilemap.playerStartLeft
 end
@@ -75,6 +79,7 @@ room.create = function (tileMap, tilesheet, entities)
 
     inst.walkable = walkable
     inst.addEntity = addEntity
+    inst.getEntities = getEntities
     inst.getEntrance = getEntrance
     inst.getExit = getExit
     inst.update = update
